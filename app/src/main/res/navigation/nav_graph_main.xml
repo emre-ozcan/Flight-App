@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/action_airports">
+
+    <fragment
+        android:id="@+id/action_profile"
+        android:name="com.emreozcan.flightapp.ui.fragments.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_action_profile_to_flightsFragment"
+            app:destination="@id/flightsFragment" />
+        <action
+            android:id="@+id/action_action_profile_to_loginActivity"
+            app:destination="@id/loginActivity"
+            app:popUpTo="@id/nav_graph_main"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/action_airports"
+        android:name="com.emreozcan.flightapp.ui.fragments.airports.AirportsFragment"
+        android:label="fragment_airports"
+        tools:layout="@layout/fragment_airports" >
+        <action
+            android:id="@+id/action_action_airports_to_flightsFragment"
+            app:destination="@id/flightsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/flightsFragment"
+        android:name="com.emreozcan.flightapp.ui.fragments.flights.FlightsFragment"
+        android:label="fragment_flights"
+        tools:layout="@layout/fragment_flights" />
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.emreozcan.flightapp.ui.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
+</navigation>
