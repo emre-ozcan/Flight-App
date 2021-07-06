@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.emreozcan.flightapp.R
@@ -28,6 +29,9 @@ class LoginFragment : Fragment() {
     ): View {
 
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
+
+        val anim = AnimationUtils.loadAnimation(requireContext(),R.anim.from_right)
+
 
         binding.buttonLoginSignup.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_signInFragment)

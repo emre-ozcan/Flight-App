@@ -27,9 +27,12 @@ class MainActivity : AppCompatActivity() {
 
         binding.fab.setOnClickListener {
             when(getForegroundFragment()){
-                is ProfileFragment ->{navController.navigate(R.id.action_action_profile_to_flightsFragment)}
+                is ProfileFragment ->{
+                    navController.navigate(R.id.action_action_profile_to_flightsFragment)
+               }
                 is AirportsFragment -> {navController.navigate(R.id.action_action_airports_to_flightsFragment)}
             }
+
         }
 
     }

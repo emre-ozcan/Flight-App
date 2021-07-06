@@ -16,6 +16,8 @@
         <action
             android:id="@+id/action_action_profile_to_loginActivity"
             app:destination="@id/loginActivity"
+            app:enterAnim="@anim/from_top"
+            app:exitAnim="@anim/to_bottom"
             app:popUpTo="@id/nav_graph_main"
             app:popUpToInclusive="true" />
     </fragment>
@@ -27,15 +29,51 @@
         <action
             android:id="@+id/action_action_airports_to_flightsFragment"
             app:destination="@id/flightsFragment" />
+        <action
+            android:id="@+id/action_action_airports_to_mapsFragment"
+            app:destination="@id/mapsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/flightsFragment"
         android:name="com.emreozcan.flightapp.ui.fragments.flights.FlightsFragment"
         android:label="fragment_flights"
-        tools:layout="@layout/fragment_flights" />
+        tools:layout="@layout/fragment_flights" >
+        <action
+            android:id="@+id/action_flightsFragment_to_airportFlightsFragment"
+            app:destination="@id/airportFlightsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
     <activity
         android:id="@+id/loginActivity"
         android:name="com.emreozcan.flightapp.ui.LoginActivity"
         android:label="activity_login"
         tools:layout="@layout/activity_login" />
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="com.emreozcan.flightapp.ui.fragments.map.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" >
+        <argument
+            android:name="latitudeAndLongitude"
+            app:argType="string" />
+        <argument
+            android:name="airportName"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/airportFlightsFragment"
+        android:name="com.emreozcan.flightapp.ui.fragments.airportflights.AirportFlightsFragment"
+        android:label="fragment_airport_flights"
+        tools:layout="@layout/fragment_airport_flights" >
+        <argument
+            android:name="flightList"
+            app:argType="com.emreozcan.flightapp.models.Flights[]" />
+    </fragment>
 </navigation>

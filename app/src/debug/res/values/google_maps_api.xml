@@ -1,0 +1,22 @@
+<resources>
+    <!--
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=23:05:BC:70:34:F0:DD:34:3C:22:29:76:84:E7:CB:56:63:09:1C:50%3Bcom.emreozcan.flightapp.ui.fragments.map
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    com.emreozcan.flightapp.ui.fragments.map
+
+    SHA-1 certificate fingerprint:
+    23:05:BC:70:34:F0:DD:34:3C:22:29:76:84:E7:CB:56:63:09:1C:50
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAo9WMWvF3B7pbNRkdqZxdZZM6Xg_LYq9k</string>
+</resources>

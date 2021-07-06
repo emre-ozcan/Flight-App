@@ -5,56 +5,55 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.emreozcan.flightapp.R
+import com.emreozcan.flightapp.adapters.AirportsRowAdapter
+import com.emreozcan.flightapp.adapters.FlightsRowAdapter
+import com.emreozcan.flightapp.databinding.FragmentFlightsBinding
+import com.emreozcan.flightapp.viewmodel.MainViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FlightsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FlightsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding : FragmentFlightsBinding? = null
+    private val binding get() = _binding!!
+
+    private val mainViewModel: MainViewModel by viewModels()
+
+    private val mAdapter by lazy { FlightsRowAdapter() }
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_flights, container, false)
+    ): View {
+
+        _binding = FragmentFlightsBinding.inflate(inflater,container,false)
+
+
+        setupRecycler()
+        mainViewModel.getData()
+        mainViewModel.airportsList.observe(viewLifecycleOwner,{ list ->
+            mAdapter.setData(list)
+            binding.recyclerViewFlights.scheduleLayoutAnimation()
+        })
+
+
+
+
+        return binding.root
+    }
+    private fun setupRecycler(){
+        binding.recyclerViewFlights.adapter = mAdapter
+        binding.recyclerViewFlights.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FlightsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FlightsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
+
 }
