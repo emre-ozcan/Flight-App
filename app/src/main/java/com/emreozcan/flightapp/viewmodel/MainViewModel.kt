@@ -153,6 +153,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 database.collection(FIREBASE_COLLECTION_USER).document(auth.currentUser!!.uid)
                     .set(User(name, surname, email, password))
                 fragment.findNavController().navigate(R.id.action_signInFragment_to_mainActivity)
+                fragment.activity?.finish()
             }
         }.addOnFailureListener { exception ->
             Toast.makeText(

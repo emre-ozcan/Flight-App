@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setupWithNavController(navController)
 
         binding.fab.setOnClickListener {
+            binding.bottomNavigationView.selectedItemId = R.id.placeholder
             when(getForegroundFragment()){
                 is ProfileFragment ->{
                     navController.navigate(R.id.action_action_profile_to_flightsFragment)
