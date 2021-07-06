@@ -21,10 +21,7 @@ class FirstScreen : Fragment() {
     ): View {
         _binding = FragmentFirstScreenBinding.inflate(inflater,container,false)
 
-        val anim = AnimationUtils.loadAnimation(requireContext(),R.anim.anim_alpha)
-        binding.imageView2.startAnimation(anim)
-        binding.textView3.startAnimation(anim)
-        binding.textView5.startAnimation(anim)
+        startAnimations()
 
         val viewPager = activity?.findViewById<ViewPager2>(R.id.viewPager)
 
@@ -36,6 +33,13 @@ class FirstScreen : Fragment() {
 
 
         return binding.root
+    }
+
+    private fun startAnimations(){
+        val anim = AnimationUtils.loadAnimation(requireContext(),R.anim.anim_alpha)
+        binding.imageView2.startAnimation(anim)
+        binding.textView3.startAnimation(anim)
+        binding.textView5.startAnimation(anim)
     }
 
     override fun onDestroyView() {

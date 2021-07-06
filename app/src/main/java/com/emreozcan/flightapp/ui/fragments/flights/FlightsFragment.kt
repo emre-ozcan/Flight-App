@@ -24,8 +24,6 @@ class FlightsFragment : Fragment() {
 
     private val mAdapter by lazy { FlightsRowAdapter() }
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

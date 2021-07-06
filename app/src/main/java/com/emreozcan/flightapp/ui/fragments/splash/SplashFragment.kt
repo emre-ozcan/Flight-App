@@ -30,11 +30,7 @@ class SplashFragment : Fragment() {
     ): View {
         _binding = FragmentSplashBinding.inflate(inflater,container,false)
 
-        val anim = AnimationUtils.loadAnimation(requireContext(),R.anim.plane_anim)
-        binding.imageView.startAnimation(anim)
-
-        val animText = AnimationUtils.loadAnimation(requireContext(),R.anim.anim_alpha)
-        binding.textView.startAnimation(animText)
+        startAnimations()
 
         mainViewModel.readOnboarding.observe(viewLifecycleOwner,{
             isOnboardingShowed = it
@@ -54,6 +50,14 @@ class SplashFragment : Fragment() {
         },2000)
 
         return binding.root
+    }
+
+    private fun startAnimations() {
+        val anim = AnimationUtils.loadAnimation(requireContext(),R.anim.plane_anim)
+        binding.imageView.startAnimation(anim)
+
+        val animText = AnimationUtils.loadAnimation(requireContext(),R.anim.anim_alpha)
+        binding.textView.startAnimation(animText)
     }
 
     override fun onDestroyView() {

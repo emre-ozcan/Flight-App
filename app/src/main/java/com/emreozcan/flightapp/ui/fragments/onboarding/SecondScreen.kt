@@ -29,11 +29,8 @@ class SecondScreen : Fragment() {
     ): View {
         _binding = FragmentSecondScreenBinding.inflate(inflater,container,false)
 
-        val anim = AnimationUtils.loadAnimation(requireContext(),R.anim.anim_alpha)
-        binding.imageView7.startAnimation(anim)
-        binding.textView6.startAnimation(anim)
-        binding.textView7.startAnimation(anim)
 
+        startAnimations()
 
 
         binding.buttonFinish.setOnClickListener {
@@ -46,7 +43,12 @@ class SecondScreen : Fragment() {
 
         return binding.root
     }
-
+    private fun startAnimations(){
+        val anim = AnimationUtils.loadAnimation(requireContext(),R.anim.anim_alpha)
+        binding.imageView7.startAnimation(anim)
+        binding.textView6.startAnimation(anim)
+        binding.textView7.startAnimation(anim)
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

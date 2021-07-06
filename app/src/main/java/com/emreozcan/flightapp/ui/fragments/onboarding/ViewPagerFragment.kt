@@ -21,7 +21,7 @@ class ViewPagerFragment : Fragment() {
     ): View {
         _binding = FragmentOnboardingBinding.inflate(inflater,container,false)
 
-        val fragmentList = arrayListOf<Fragment>(
+        val fragmentList = arrayListOf(
             FirstScreen(),
             SecondScreen()
         )
@@ -29,9 +29,6 @@ class ViewPagerFragment : Fragment() {
         val adapter = ViewPagerAdapter(fragmentList,requireActivity().supportFragmentManager,lifecycle)
 
         binding.viewPager.adapter = adapter
-
-
-
 
         return binding.root
     }

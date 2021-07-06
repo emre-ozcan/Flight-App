@@ -24,13 +24,11 @@ class AirportFlightsFragment : Fragment() {
     private val mAdapter by lazy { AirportsFlightsRowAdapter() }
 
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View{
-        // Inflate the layout for this fragment
+
         _binding = FragmentAirportFlightsBinding.inflate(inflater,container,false)
 
         setupRecyclerView()

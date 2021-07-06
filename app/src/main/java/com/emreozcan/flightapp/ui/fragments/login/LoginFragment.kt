@@ -30,9 +30,6 @@ class LoginFragment : Fragment() {
 
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
-        val anim = AnimationUtils.loadAnimation(requireContext(),R.anim.from_right)
-
-
         binding.buttonLoginSignup.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_signInFragment)
         }
