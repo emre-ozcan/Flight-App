@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list>
+
+            <item>
+                <shape>
+                    <solid android:color="@color/secondary_text_blue_color" />
+                    <padding android:bottom="3dp" android:left="50dp" android:right="50dp" android:top="3dp" />
+
+                </shape>
+            </item>
+
+            <item>
+                <bitmap android:gravity="center_vertical|right" android:src="@drawable/ic_arrow_white" />
+            </item>
+
+        </layer-list>
+
+
+    </item>
+</selector>
