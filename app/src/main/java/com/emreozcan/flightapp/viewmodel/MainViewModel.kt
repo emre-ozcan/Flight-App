@@ -2,6 +2,8 @@ package com.emreozcan.flightapp.viewmodel
 
 import android.app.Application
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
@@ -38,8 +40,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     val readOnboarding = dataStore.readOnboarding.asLiveData()
 
-    fun saveOnboarding(){
-        viewModelScope.launch{
+    fun saveOnboarding() {
+        viewModelScope.launch {
             dataStore.onBoardingShowed()
         }
     }
@@ -203,50 +205,77 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         auth.signOut()
     }
 
-    fun changeUserInformations(name: String,surname: String,email: String,password: String,context: Context){
-        val credential = EmailAuthProvider.getCredential(userLogin.value!!.userEmail,userLogin.value!!.userPassword)
+    fun changeUserInformations(
+        name: String,
+        surname: String,
+        email: String,
+        password: String,
+        context: Context
+    ) {
+        val credential = EmailAuthProvider.getCredential(
+            userLogin.value!!.userEmail,
+            userLogin.value!!.userPassword
+        )
         currentUser!!.reauthenticate(credential).addOnFailureListener { exception ->
-            Toast.makeText(context,"Error ! ${exception.localizedMessage}",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Error ! ${exception.localizedMessage}", Toast.LENGTH_SHORT)
+                .show()
 
         }
 
-        if (userLogin.value?.userEmail != email){
+        if (userLogin.value?.userEmail != email) {
             currentUser!!.updateEmail(email).addOnCompleteListener { task ->
-                if (task.isSuccessful){
+                if (task.isSuccessful) {
                     database.collection(FIREBASE_COLLECTION_USER).document(auth.currentUser!!.uid)
-                        .update("userEmail",email)
-                    Toast.makeText(context,"Email Updated",Toast.LENGTH_SHORT).show()
+                        .update("userEmail", email)
+                    Toast.makeText(context, "Email Updated", Toast.LENGTH_SHORT).show()
                 }
             }.addOnFailureListener { exception ->
-                Toast.makeText(context,"Error ! ${exception.localizedMessage}",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Error ! ${exception.localizedMessage}", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
-        if (userLogin.value?.userPassword != password){
+        if (userLogin.value?.userPassword != password) {
             currentUser!!.updatePassword(password).addOnCompleteListener { task ->
-                if (task.isSuccessful){
+                if (task.isSuccessful) {
 
                     database.collection(FIREBASE_COLLECTION_USER).document(auth.currentUser!!.uid)
-                        .update("userPassword",password)
+                        .update("userPassword", password)
 
-                    Toast.makeText(context,"Password changed",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Password changed", Toast.LENGTH_SHORT).show()
                 }
             }.addOnFailureListener { exception ->
-                Toast.makeText(context,"Error ! ${exception.localizedMessage}",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Error ! ${exception.localizedMessage}", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
-        if (userLogin.value?.userName != name){
+        if (userLogin.value?.userName != name) {
             database.collection(FIREBASE_COLLECTION_USER).document(auth.currentUser!!.uid)
-                .update("userName",name)
+                .update("userName", name)
         }
 
-        if(userLogin.value?.userSurname != surname){
+        if (userLogin.value?.userSurname != surname) {
             database.collection(FIREBASE_COLLECTION_USER).document(auth.currentUser!!.uid)
-                .update("userSurname",surname)
+                .update("userSurname", surname)
         }
 
 
+    }
+
+    fun hasInternetConnection(): Boolean {
+        val connectivityManager =
+            getApplication<Application>().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val activeNetwork = connectivityManager.activeNetwork ?: return false
+        val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
+
+        return when {
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+            else -> false
+        }
     }
 
 
