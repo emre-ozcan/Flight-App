@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "61056869166",
+    "project_id": "flightapp-3682f",
+    "storage_bucket": "flightapp-3682f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:61056869166:android:2e233e7d444000e4bd50bf",
+        "android_client_info": {
+          "package_name": "com.emreozcan.flightapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "61056869166-juqp4cao9qko6rlubvdpd8422ind29gm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1dbFftXH5nO4NhcOYnBnJezP8cMGxIXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "61056869166-juqp4cao9qko6rlubvdpd8422ind29gm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
