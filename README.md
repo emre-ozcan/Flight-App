@@ -26,3 +26,6 @@ Force Update sayesinde uygulamanın versiyonu Firebase üzerinden yönetilir. G�
 
 <img src="https://user-images.githubusercontent.com/49096704/124749157-8ce05800-df2c-11eb-8c6f-bb15cb782a3c.png" height="500"> <img src="https://user-images.githubusercontent.com/49096704/124749509-fceede00-df2c-11eb-8140-5d08eba48e17.png" height="500">
 
+![image](https://user-images.githubusercontent.com/49096704/124750032-a504a700-df2d-11eb-912b-dba936847084.png)
+
+
