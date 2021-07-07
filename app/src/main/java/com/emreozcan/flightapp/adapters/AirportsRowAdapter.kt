@@ -52,6 +52,11 @@ class AirportsRowAdapter : RecyclerView.Adapter<AirportsRowAdapter.MyViewHolder>
             val action = AirportsFragmentDirections.actionActionAirportsToMapsFragment(airportsList[position].latitudeLongitude,airportsList[position].airportName)
             Navigation.findNavController(it).navigate(action)
         }
+
+        holder.binding.cardViewAirport.setOnClickListener {
+            val action = AirportsFragmentDirections.actionActionAirportsToAirportFlightsFragment(airportsList[position].flightList.toTypedArray())
+            Navigation.findNavController(it).navigate(action)
+        }
     }
 
     override fun getItemCount(): Int {

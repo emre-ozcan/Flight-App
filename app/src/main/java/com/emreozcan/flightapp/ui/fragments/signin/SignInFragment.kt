@@ -1,10 +1,13 @@
 package com.emreozcan.flightapp.ui.fragments.signin
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -29,8 +32,38 @@ class SignInFragment : Fragment() {
         _binding = FragmentSignInBinding.inflate(inflater, container, false)
 
         binding.closeImageViewSignup.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
-            findNavController().navigate(R.id.action_signInFragment_to_loginFragment)
+        binding.nameEditTextSignup.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE){
+                binding.surnameEditTextSignup.requestFocus()
+                return@setOnEditorActionListener true
+            }
+            false
+        }
+
+        binding.surnameEditTextSignup.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE){
+                binding.emailEditTextSignup.requestFocus()
+                return@setOnEditorActionListener true
+            }
+            false
+        }
+
+        binding.emailEditTextSignup.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE){
+                binding.passwordEditTextSignup.requestFocus()
+                return@setOnEditorActionListener true
+            }
+            false
+        }
+        binding.passwordEditTextSignup.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE){
+                binding.buttonSignup.callOnClick()
+                return@setOnEditorActionListener true
+            }
+            false
         }
 
 
@@ -38,19 +71,52 @@ class SignInFragment : Fragment() {
             val name = binding.nameEditTextSignup.text.toString().trim()
             val surname = binding.surnameEditTextSignup.text.toString().trim()
             val email = binding.emailEditTextSignup.text.toString().trim()
-            val password = binding.passwordTextViewSignup.text.toString().trim()
+            val password = binding.passwordEditTextSignup.text.toString().trim()
 
-            if (name.isNotEmpty() && surname.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
-                mainViewModel.signIn(
-                    email,
-                    password,
-                    name,
-                    surname,
-                    this
-                )
-            }else{
-                showFieldSnackbar(it)
+            var back = false
+
+            if (name.length < 2) {
+                binding.signinNameTextInputLayout.error = "Name lenght is too short!"
+                back = true
+                Handler(Looper.getMainLooper()).postDelayed({
+                    binding.signinNameTextInputLayout.error = null
+                }, 3000)
             }
+
+            if (surname.length < 2) {
+                binding.signinSurnameTextInputLayout.error = "Surname lenght is too short!"
+                back = true
+                Handler(Looper.getMainLooper()).postDelayed({
+                    binding.signinSurnameTextInputLayout.error = null
+                }, 3000)
+            }
+
+            if (email.length < 6) {
+                binding.signinEmailTextInputLayout.error = "Email lenght is too short!"
+                back = true
+                Handler(Looper.getMainLooper()).postDelayed({
+                    binding.signinEmailTextInputLayout.error = null
+                }, 3000)
+            }
+            if (password.length < 6) {
+                binding.signinPasswordTextInputLayout.error = "Password lenght is too short!"
+                back = true
+                Handler(Looper.getMainLooper()).postDelayed({
+                    binding.signinPasswordTextInputLayout.error = null
+                }, 3000)
+            }
+
+            if (back) {
+                return@setOnClickListener
+            }
+
+            mainViewModel.signIn(
+                email,
+                password,
+                name,
+                surname,
+                this
+            )
 
 
         }

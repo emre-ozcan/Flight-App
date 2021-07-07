@@ -36,6 +36,13 @@
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_action_airports_to_airportFlightsFragment"
+            app:destination="@id/airportFlightsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/flightsFragment"
@@ -75,5 +82,8 @@
         <argument
             android:name="flightList"
             app:argType="com.emreozcan.flightapp.models.Flights[]" />
+        <action
+            android:id="@+id/action_airportFlightsFragment_to_flightsFragment"
+            app:destination="@id/flightsFragment" />
     </fragment>
 </navigation>

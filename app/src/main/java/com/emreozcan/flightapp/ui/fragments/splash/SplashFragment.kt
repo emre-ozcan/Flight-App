@@ -71,6 +71,7 @@ class SplashFragment : Fragment(), ForceUpdateChecker.OnUpdateNeedListener {
                     when {
                         mainViewModel.currentUser != null -> {
                             findNavController().navigate(R.id.action_splashFragment_to_mainActivity)
+                            activity?.finish()
                         }
                         isOnboardingShowed -> {
                             findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
@@ -154,6 +155,7 @@ class SplashFragment : Fragment(), ForceUpdateChecker.OnUpdateNeedListener {
                         when {
                             mainViewModel.currentUser != null -> {
                                 findNavController().navigate(R.id.action_splashFragment_to_mainActivity)
+                                activity?.finish()
                             }
                             isOnboardingShowed -> {
                                 findNavController().navigate(R.id.action_splashFragment_to_loginFragment)

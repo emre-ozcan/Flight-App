@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.emreozcan.flightapp.R
 import com.emreozcan.flightapp.databinding.ActivityMainBinding
+import com.emreozcan.flightapp.ui.fragments.airportflights.AirportFlightsFragment
 import com.emreozcan.flightapp.ui.fragments.airports.AirportsFragment
 import com.emreozcan.flightapp.ui.fragments.profile.ProfileFragment
 
@@ -32,12 +33,13 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.action_action_profile_to_flightsFragment)
                }
                 is AirportsFragment -> {navController.navigate(R.id.action_action_airports_to_flightsFragment)}
+                is AirportFlightsFragment -> {navController.navigate(R.id.action_airportFlightsFragment_to_flightsFragment)}
             }
 
         }
 
     }
-    fun getForegroundFragment(): Fragment? {
+    private fun getForegroundFragment(): Fragment? {
         val navHostFragment: Fragment? =
             supportFragmentManager.findFragmentById(R.id.navControllerMain)
         return navHostFragment?.childFragmentManager?.fragments?.get(0)

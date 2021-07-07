@@ -37,10 +37,9 @@ class ForceUpdateChecker(
                 onUpdateNeedListener.onUpdateNeed(updateUrl,true)
             }
 
-        }else if (APP_VERSION_CODE.toString() < leastAppVersion && !isForced){
+        }else if (APP_VERSION_CODE.toString() < leastAppVersion){
             onUpdateNeedListener.onUpdateNeed(updateUrl,true)
         }
-
         else if (APP_VERSION_CODE.toString() != suggestedAppVersion){
             onUpdateNeedListener.onUpdateNeed(updateUrl,false)
         }

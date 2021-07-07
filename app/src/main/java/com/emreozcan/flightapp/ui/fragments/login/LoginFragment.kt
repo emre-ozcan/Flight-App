@@ -1,18 +1,20 @@
 package com.emreozcan.flightapp.ui.fragments.login
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.emreozcan.flightapp.R
 import com.emreozcan.flightapp.databinding.FragmentLoginBinding
+import com.emreozcan.flightapp.util.onDone
 import com.emreozcan.flightapp.util.showFieldSnackbar
 import com.emreozcan.flightapp.viewmodel.MainViewModel
-import com.google.android.material.snackbar.Snackbar
 
 
 class LoginFragment : Fragment() {
@@ -34,14 +36,47 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id.action_loginFragment_to_signInFragment)
         }
 
-        binding.buttonLogin.setOnClickListener {
-            val name = binding.emailEditTextLogin.text.toString().trim()
-            val password = binding.passwordEditTextLogin.text.toString().trim()
-            if (name.isNotEmpty() && password.isNotEmpty()){
-                mainViewModel.login(name,password,this)
-            }else{
-                showFieldSnackbar(it)
+       binding.emailEditTextLogin.setOnEditorActionListener { _, actionId, _ ->
+           if (actionId == EditorInfo.IME_ACTION_DONE){
+               binding.passwordEditTextLogin.requestFocus()
+               return@setOnEditorActionListener true
+           }
+           false
+       }
+        binding.passwordEditTextLogin.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE){
+                binding.buttonLogin.callOnClick()
+                return@setOnEditorActionListener true
             }
+            false
+        }
+
+
+        binding.buttonLogin.setOnClickListener {
+            val email = binding.emailEditTextLogin.text.toString().trim()
+            val password = binding.passwordEditTextLogin.text.toString().trim()
+
+            var back = false
+
+            if (email.length < 6) {
+                binding.loginEmailTextInputLayout.error = "Email lenght is too short !"
+                Handler(Looper.getMainLooper()).postDelayed({
+                    binding.loginEmailTextInputLayout.error = null
+                }, 3000)
+                back = true
+            }
+            if (password.length < 6) {
+                binding.loginPasswordTextInputLayout.error = "Password length is too short!"
+                Handler(Looper.getMainLooper()).postDelayed({
+                    binding.loginPasswordTextInputLayout.error = null
+                }, 3000)
+                back = true
+            }
+            if (back){
+                return@setOnClickListener
+            }
+            mainViewModel.login(email, password, this)
+
         }
 
 

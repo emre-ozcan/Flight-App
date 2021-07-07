@@ -49,18 +49,19 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout7"
+                android:id="@+id/profile_name_textInputLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-
                 app:layout_constraintEnd_toEndOf="parent"
+                app:counterEnabled="true"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView17">
-
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/profile_name_editText_signup"
                     android:layout_width="match_parent"
@@ -69,17 +70,19 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout8"
+                android:id="@+id/profile_surname_textInputLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout7">
+                app:layout_constraintTop_toBottomOf="@+id/profile_name_textInputLayout"
+                app:counterEnabled="true"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/profile_surname_editText_signup"
@@ -89,18 +92,19 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout9"
+                android:id="@+id/profile_email_textInputLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout8">
-
+                app:layout_constraintTop_toBottomOf="@+id/profile_surname_textInputLayout"
+                app:counterEnabled="true"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/profile_email_editText_signup"
                     android:layout_width="match_parent"
@@ -109,7 +113,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout10"
+                android:id="@+id/profile_password_textInputLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -119,12 +123,14 @@
                 app:endIconMode="password_toggle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout9">
-
+                app:layout_constraintTop_toBottomOf="@+id/profile_email_textInputLayout"
+                app:counterEnabled="true"
+                app:errorEnabled="true">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/profile_password_textView_signup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textPassword"
                     android:hint="Password" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -136,9 +142,9 @@
                 android:background="@drawable/button_background"
                 android:text="Update"
                 android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayout10"
-                app:layout_constraintStart_toStartOf="@+id/textInputLayout10"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout10" />
+                app:layout_constraintEnd_toEndOf="@+id/profile_password_textInputLayout"
+                app:layout_constraintStart_toStartOf="@+id/profile_password_textInputLayout"
+                app:layout_constraintTop_toBottomOf="@+id/profile_password_textInputLayout" />
 
             <android.widget.Button
                 android:id="@+id/buttonLogout"

@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
@@ -94,7 +95,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         var tempList = arrayListOf<Airports>()
         database.collection(FIREBASE_COLLECTION).addSnapshotListener { snapshot, exception ->
             if (exception != null) {
-
+                Log.d("data", exception.localizedMessage!!)
             } else {
                 if (snapshot != null && !snapshot.isEmpty) {
                     val documents = snapshot.documents
@@ -169,9 +170,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun login(email: String, password: String, fragment: Fragment) {
         auth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
+
             Toast.makeText(fragment.context, "Succesfully Login !", Toast.LENGTH_LONG).show()
             fragment.findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
-            fragment.requireActivity().finish()
+            fragment.activity?.finish()
+
         }.addOnFailureListener { exception ->
             Toast.makeText(
                 fragment.context,
@@ -182,22 +185,25 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getUser(uid: String) {
+        database.collection(FIREBASE_COLLECTION_USER).document(uid)
+            .addSnapshotListener { snapshot, exception ->
+                if (exception != null) {
+                    Log.d("data", exception.localizedMessage!!)
+                } else {
+                    if (snapshot != null) {
+                        val document = snapshot.data
+                        document?.let {
+                            val name = it["userName"] as String
+                            val surname = it["userSurname"] as String
+                            val password = it["userPassword"] as String
+                            val email = it["userEmail"] as String
 
-        database.collection(FIREBASE_COLLECTION_USER).document(uid).get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
-                    val doc = document.data!!
-                    val name = doc.get("userName") as String
-                    val surname = doc.get("userSurname") as String
-                    val password = doc.get("userPassword") as String
-                    val email = doc.get("userEmail") as String
+                            val user = User(name, surname, email, password)
+                            userLogin.value = user
+                        }
 
-                    val user = User(name, surname, email, password)
-                    userLogin.value = user
-
+                    }
                 }
-            }.addOnFailureListener {
-
             }
     }
 
@@ -210,24 +216,27 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         surname: String,
         email: String,
         password: String,
-        context: Context
+        context: Context,
     ) {
+        var isChanged = false
+
         val credential = EmailAuthProvider.getCredential(
             userLogin.value!!.userEmail,
             userLogin.value!!.userPassword
         )
+
         currentUser!!.reauthenticate(credential).addOnFailureListener { exception ->
             Toast.makeText(context, "Error ! ${exception.localizedMessage}", Toast.LENGTH_SHORT)
                 .show()
-
         }
 
         if (userLogin.value?.userEmail != email) {
-            currentUser!!.updateEmail(email).addOnCompleteListener { task ->
+            isChanged = true
+            currentUser.updateEmail(email).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     database.collection(FIREBASE_COLLECTION_USER).document(auth.currentUser!!.uid)
                         .update("userEmail", email)
-                    Toast.makeText(context, "Email Updated", Toast.LENGTH_SHORT).show()
+
                 }
             }.addOnFailureListener { exception ->
                 Toast.makeText(context, "Error ! ${exception.localizedMessage}", Toast.LENGTH_SHORT)
@@ -236,13 +245,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
 
         if (userLogin.value?.userPassword != password) {
-            currentUser!!.updatePassword(password).addOnCompleteListener { task ->
+            isChanged = true
+            currentUser.updatePassword(password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-
                     database.collection(FIREBASE_COLLECTION_USER).document(auth.currentUser!!.uid)
                         .update("userPassword", password)
 
-                    Toast.makeText(context, "Password changed", Toast.LENGTH_SHORT).show()
                 }
             }.addOnFailureListener { exception ->
                 Toast.makeText(context, "Error ! ${exception.localizedMessage}", Toast.LENGTH_SHORT)
@@ -251,15 +259,22 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
 
         if (userLogin.value?.userName != name) {
+            isChanged = true
             database.collection(FIREBASE_COLLECTION_USER).document(auth.currentUser!!.uid)
                 .update("userName", name)
+
         }
 
         if (userLogin.value?.userSurname != surname) {
+            isChanged = true
             database.collection(FIREBASE_COLLECTION_USER).document(auth.currentUser!!.uid)
                 .update("userSurname", surname)
         }
-
+        if (isChanged){
+            Toast.makeText(context,"Changes Applied",Toast.LENGTH_SHORT).show()
+        }else{
+            Toast.makeText(context,"There is any change",Toast.LENGTH_SHORT).show()
+        }
 
     }
 
