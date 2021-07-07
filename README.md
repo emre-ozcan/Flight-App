@@ -19,5 +19,10 @@
 - View Binding
 - Jetpack Navigation
 - Splash Screen Onboarding Screen
+- Force Update
 
+### Force Update
+Force Update sayesinde uygulamanın versiyonu Firebase üzerinden yönetilir. Güncelleme yönetimi kolaylaştırılır.
+
+<img src="https://user-images.githubusercontent.com/49096704/124749157-8ce05800-df2c-11eb-8c6f-bb15cb782a3c.png" height="500"> <img src="https://user-images.githubusercontent.com/49096704/124749509-fceede00-df2c-11eb-8140-5d08eba48e17.png" height="500">
 
