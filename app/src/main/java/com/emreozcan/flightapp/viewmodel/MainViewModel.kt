@@ -161,7 +161,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 Toast.makeText(fragment.context, "Succesfully Signup !", Toast.LENGTH_LONG).show()
                 val f1 =
                     Flights("Turkish Airlines", "09:45;11:45", "20", "Hour", "TK1919", "SAW,SZF")
-                val f2 = Flights("Pegasus", "08:50;12:45", "20", "Hour", "TK1919", "ABC,DEF")
+                val f2 = Flights("Pegasus", "08:50;12:45", "10", "Hour", "TK9876", "ABC,DEF")
                 val flightList = listOf(f1, f2)
 
                 database.collection(FIREBASE_COLLECTION_USER).document(auth.currentUser!!.uid)
