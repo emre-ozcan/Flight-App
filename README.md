@@ -20,6 +20,9 @@
 - Jetpack Navigation
 - Splash Screen Onboarding Screen
 - Force Update
+- Dexter Permission Library
+- Shimmer Effect for RecyclerView
+- Youtube Player API
 
 ### Force Update
 Force Update sayesinde uygulamanın versiyonu Firebase üzerinden yönetilir. Güncelleme yönetimi kolaylaştırılır.
