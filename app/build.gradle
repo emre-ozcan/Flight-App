@@ -74,14 +74,17 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0-beta02")
 
 
-    //Force Update Remote Confing
+    // Force Update Remote Confing
 
     implementation platform('com.google.firebase:firebase-bom:28.2.0')
     implementation 'com.google.firebase:firebase-config-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
-    //Shimmer
+    // Shimmer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    // Dexter-Permission
+    implementation 'com.karumi:dexter:6.2.3'
 
 
 }

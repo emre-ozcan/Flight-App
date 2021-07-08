@@ -1,5 +1,6 @@
 package com.emreozcan.flightapp.ui
 
+import android.Manifest
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -11,6 +12,7 @@ import com.emreozcan.flightapp.ui.fragments.airportflights.AirportFlightsFragmen
 import com.emreozcan.flightapp.ui.fragments.airports.AirportsFragment
 import com.emreozcan.flightapp.ui.fragments.profile.ProfileFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.karumi.dexter.Dexter
 
 
 class MainActivity : AppCompatActivity() {
