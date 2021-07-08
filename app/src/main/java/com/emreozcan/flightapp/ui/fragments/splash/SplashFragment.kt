@@ -47,6 +47,9 @@ class SplashFragment : Fragment(), ForceUpdateChecker.OnUpdateNeedListener {
         super.onCreate(savedInstanceState)
 
         hasInternetConnection = mainViewModel.hasInternetConnection()
+        if (hasInternetConnection){
+            handleForceUpdate()
+        }
     }
 
 
@@ -62,9 +65,7 @@ class SplashFragment : Fragment(), ForceUpdateChecker.OnUpdateNeedListener {
             isOnboardingShowed = it
         })
 
-
         if (hasInternetConnection) {
-            handleForceUpdate()
             if (!updateNeed){
                 val handler = Handler(Looper.getMainLooper())
                 handler.postDelayed({
@@ -100,12 +101,12 @@ class SplashFragment : Fragment(), ForceUpdateChecker.OnUpdateNeedListener {
         val remoteConfigDefaults = hashMapOf<String, Any>()
         remoteConfigDefaults[STORE_URL] =
             "https://play.google.com/store/apps/details?id=com.nczsoftware.waterreminderapp&hl=tr&gl=US"
-        remoteConfigDefaults[SUGGESTED_VERSION_CODE] = 2
+        remoteConfigDefaults[SUGGESTED_VERSION_CODE] = 1
         remoteConfigDefaults[LEAST_VERSION_CODE] = 1
         remoteConfigDefaults[FORCE_UPDATE_REQUIRED] = false
 
         remoteConfig.setDefaultsAsync(remoteConfigDefaults)
-        remoteConfig.fetch(60).addOnCompleteListener { task ->
+        remoteConfig.fetch(1).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 remoteConfig.fetchAndActivate()
             }

@@ -7,6 +7,17 @@
     tools:context=".ui.fragments.onboarding.FirstScreen">
 
 
+    <TextView
+        android:id="@+id/secondScreenFinish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Skip"
+        android:textColor="@color/base_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <android.widget.Button
         android:id="@+id/buttonContinue"
         android:layout_width="0dp"

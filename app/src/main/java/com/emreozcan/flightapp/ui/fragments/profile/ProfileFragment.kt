@@ -10,9 +10,11 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.emreozcan.flightapp.R
 import com.emreozcan.flightapp.databinding.FragmentProfileBinding
+import com.emreozcan.flightapp.models.User
 import com.emreozcan.flightapp.util.showFieldSnackbar
 import com.emreozcan.flightapp.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -25,6 +27,8 @@ class ProfileFragment : Fragment() {
 
 
     private val mainViewModel: MainViewModel by viewModels()
+
+    private lateinit var userCurrent: User
 
 
     override fun onCreateView(
@@ -45,17 +49,20 @@ class ProfileFragment : Fragment() {
             mainViewModel.getUser(it.uid)
         }
 
-        mainViewModel.userLogin.observe(viewLifecycleOwner, { useLogin ->
+
+        mainViewModel.userLogin.observe(viewLifecycleOwner, { userLogin ->
             user?.let {
-                binding.profileNameEditTextSignup.setText(useLogin.userName)
-                binding.profilePasswordTextViewSignup.setText(useLogin.userPassword)
-                binding.profileEmailEditTextSignup.setText(useLogin.userEmail)
-                binding.profileSurnameEditTextSignup.setText(useLogin.userSurname)
+                binding.profileNameEditTextSignup.setText(userLogin.userName)
+                binding.profilePasswordTextViewSignup.setText(userLogin.userPassword)
+                binding.profileEmailEditTextSignup.setText(userLogin.userEmail)
+                binding.profileSurnameEditTextSignup.setText(userLogin.userSurname)
+                userCurrent = userLogin
             }
         })
-
-
-
+        binding.buttonFlightHistory.setOnClickListener {
+            val action = ProfileFragmentDirections.actionActionProfileToFlightHistoryFragment(userCurrent.flightHistoryList.toTypedArray())
+            Navigation.findNavController(it).navigate(action)
+        }
         binding.buttonLogout.setOnClickListener {
             Toast.makeText(requireContext(), "Succesfully Logout", Toast.LENGTH_LONG).show()
             mainViewModel.logout()
@@ -115,7 +122,6 @@ class ProfileFragment : Fragment() {
             }
 
             mainViewModel.changeUserInformations(name, surname, email, password, requireContext())
-
 
         }
 

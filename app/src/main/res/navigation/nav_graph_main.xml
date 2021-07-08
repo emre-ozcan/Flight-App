@@ -20,6 +20,9 @@
             app:exitAnim="@anim/to_bottom"
             app:popUpTo="@id/nav_graph_main"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_action_profile_to_flightHistoryFragment"
+            app:destination="@id/flightHistoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/action_airports"
@@ -85,5 +88,14 @@
         <action
             android:id="@+id/action_airportFlightsFragment_to_flightsFragment"
             app:destination="@id/flightsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/flightHistoryFragment"
+        android:name="com.emreozcan.flightapp.ui.fragments.flighthistory.FlightHistoryFragment"
+        android:label="fragment_flight_history"
+        tools:layout="@layout/fragment_flight_history" >
+        <argument
+            android:name="flightList"
+            app:argType="com.emreozcan.flightapp.models.Flights[]" />
     </fragment>
 </navigation>

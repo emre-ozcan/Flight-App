@@ -39,8 +39,6 @@ class SecondScreen : Fragment() {
         }
 
 
-
-
         return binding.root
     }
     private fun startAnimations(){

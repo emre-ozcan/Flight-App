@@ -32,6 +32,10 @@ class ForceUpdateChecker(
         val leastAppVersion = remoteConfig.getString(LEAST_VERSION_CODE)
         val isForced = remoteConfig.getBoolean(FORCE_UPDATE_REQUIRED)
 
+        val string = APP_VERSION_CODE.toString() + suggestedAppVersion
+
+        println(string)
+
         if (isForced) {
             if (APP_VERSION_CODE.toString() != suggestedAppVersion) {
                 onUpdateNeedListener.onUpdateNeed(updateUrl,true)
@@ -40,7 +44,7 @@ class ForceUpdateChecker(
         }else if (APP_VERSION_CODE.toString() < leastAppVersion){
             onUpdateNeedListener.onUpdateNeed(updateUrl,true)
         }
-        else if (APP_VERSION_CODE.toString() != suggestedAppVersion){
+        else if (APP_VERSION_CODE.toString() < suggestedAppVersion){
             onUpdateNeedListener.onUpdateNeed(updateUrl,false)
         }
     }

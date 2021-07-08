@@ -10,6 +10,7 @@ import com.emreozcan.flightapp.databinding.ActivityMainBinding
 import com.emreozcan.flightapp.ui.fragments.airportflights.AirportFlightsFragment
 import com.emreozcan.flightapp.ui.fragments.airports.AirportsFragment
 import com.emreozcan.flightapp.ui.fragments.profile.ProfileFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,22 +27,42 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.navControllerMain)
         binding.bottomNavigationView.setupWithNavController(navController)
 
+        println(getForegroundFragment())
+
         binding.fab.setOnClickListener {
             binding.bottomNavigationView.selectedItemId = R.id.placeholder
-            when(getForegroundFragment()){
-                is ProfileFragment ->{
+            when (getForegroundFragment()) {
+                is ProfileFragment -> {
                     navController.navigate(R.id.action_action_profile_to_flightsFragment)
-               }
-                is AirportsFragment -> {navController.navigate(R.id.action_action_airports_to_flightsFragment)}
-                is AirportFlightsFragment -> {navController.navigate(R.id.action_airportFlightsFragment_to_flightsFragment)}
+                }
+                is AirportsFragment -> {
+                    navController.navigate(R.id.action_action_airports_to_flightsFragment)
+                }
+                is AirportFlightsFragment -> {
+                    navController.navigate(R.id.action_airportFlightsFragment_to_flightsFragment)
+                }
             }
 
         }
 
     }
+
     private fun getForegroundFragment(): Fragment? {
         val navHostFragment: Fragment? =
             supportFragmentManager.findFragmentById(R.id.navControllerMain)
         return navHostFragment?.childFragmentManager?.fragments?.get(0)
+    }
+
+    override fun onBackPressed() {
+        if (getForegroundFragment() is AirportsFragment){
+            MaterialAlertDialogBuilder(this).setMessage("Uygulamadan çıkmak istediğinize emin misiniz ?")
+                .setPositiveButton("Evet"){ dialog, which ->
+                    super.onBackPressed()
+                }.setNegativeButton("Hayır"){ dialog, which ->
+                }.show()
+        }else{
+            super.onBackPressed()
+        }
+
     }
 }

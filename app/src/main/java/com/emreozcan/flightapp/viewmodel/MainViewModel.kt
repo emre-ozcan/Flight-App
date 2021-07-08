@@ -152,9 +152,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(fragment.context, "Succesfully Signup !", Toast.LENGTH_LONG).show()
+                val f1 = Flights("Turkish Airlines", "09:45;11:45", "20", "Hour", "TK1919", "SAW,SZF")
+                val f2 = Flights("Pegasus", "08:50;12:45", "20", "Hour", "TK1919", "ABC,DEF")
+                val flightList = listOf(f1, f2)
 
                 database.collection(FIREBASE_COLLECTION_USER).document(auth.currentUser!!.uid)
-                    .set(User(name, surname, email, password))
+                    .set(User(name, surname, email, password,flightList))
                 fragment.findNavController().navigate(R.id.action_signInFragment_to_mainActivity)
                 fragment.activity?.finish()
             }
@@ -197,8 +200,24 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                             val surname = it["userSurname"] as String
                             val password = it["userPassword"] as String
                             val email = it["userEmail"] as String
+                            val flightHashList = it["flightHistoryList"] as List<HashMap<String, String>>
 
-                            val user = User(name, surname, email, password)
+                            val flightList = arrayListOf<Flights>()
+
+                            flightHashList.forEach {
+                                val flight =
+                                    Flights(
+                                        it["companyName"]!!,
+                                        it["flightStartAndFinishTime"]!!,
+                                        it["capacity"]!!,
+                                        it["hour"]!!,
+                                        it["flightCode"]!!,
+                                        it["startAndTargetCode"]!!
+                                    )
+                                flightList.add(flight)
+                            }
+
+                            val user = User(name, surname, email, password,flightList)
                             userLogin.value = user
                         }
 
