@@ -77,9 +77,11 @@ dependencies {
     //Force Update Remote Confing
 
     implementation platform('com.google.firebase:firebase-bom:28.2.0')
-
     implementation 'com.google.firebase:firebase-config-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    //Shimmer
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
 
 }

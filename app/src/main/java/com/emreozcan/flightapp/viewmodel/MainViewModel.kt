@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -40,6 +42,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val dataStore = DataStoreRepository(application.applicationContext)
 
     val readOnboarding = dataStore.readOnboarding.asLiveData()
+
+    val isLoading: MutableLiveData<Boolean> = MutableLiveData(true)
+
 
     fun saveOnboarding() {
         viewModelScope.launch {
@@ -92,6 +97,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getData() {
+        isLoading.value = true
         var tempList = arrayListOf<Airports>()
         database.collection(FIREBASE_COLLECTION).addSnapshotListener { snapshot, exception ->
             if (exception != null) {
@@ -137,6 +143,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 }
                 if (!tempList.isNullOrEmpty()) {
                     airportsList.value = tempList
+                    isLoading.value = false
                 }
             }
         }
@@ -152,12 +159,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(fragment.context, "Succesfully Signup !", Toast.LENGTH_LONG).show()
-                val f1 = Flights("Turkish Airlines", "09:45;11:45", "20", "Hour", "TK1919", "SAW,SZF")
+                val f1 =
+                    Flights("Turkish Airlines", "09:45;11:45", "20", "Hour", "TK1919", "SAW,SZF")
                 val f2 = Flights("Pegasus", "08:50;12:45", "20", "Hour", "TK1919", "ABC,DEF")
                 val flightList = listOf(f1, f2)
 
                 database.collection(FIREBASE_COLLECTION_USER).document(auth.currentUser!!.uid)
-                    .set(User(name, surname, email, password,flightList))
+                    .set(User(name, surname, email, password, flightList))
                 fragment.findNavController().navigate(R.id.action_signInFragment_to_mainActivity)
                 fragment.activity?.finish()
             }
@@ -200,7 +208,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                             val surname = it["userSurname"] as String
                             val password = it["userPassword"] as String
                             val email = it["userEmail"] as String
-                            val flightHashList = it["flightHistoryList"] as List<HashMap<String, String>>
+                            val flightHashList =
+                                it["flightHistoryList"] as List<HashMap<String, String>>
 
                             val flightList = arrayListOf<Flights>()
 
@@ -217,7 +226,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                                 flightList.add(flight)
                             }
 
-                            val user = User(name, surname, email, password,flightList)
+                            val user = User(name, surname, email, password, flightList)
                             userLogin.value = user
                         }
 
@@ -289,10 +298,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             database.collection(FIREBASE_COLLECTION_USER).document(auth.currentUser!!.uid)
                 .update("userSurname", surname)
         }
-        if (isChanged){
-            Toast.makeText(context,"Changes Applied",Toast.LENGTH_SHORT).show()
-        }else{
-            Toast.makeText(context,"There is any change",Toast.LENGTH_SHORT).show()
+        if (isChanged) {
+            Toast.makeText(context, "Changes Applied", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "There is any change", Toast.LENGTH_SHORT).show()
         }
 
     }

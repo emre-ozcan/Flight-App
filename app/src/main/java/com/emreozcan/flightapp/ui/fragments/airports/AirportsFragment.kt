@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emreozcan.flightapp.R
@@ -39,8 +40,31 @@ class AirportsFragment : Fragment() {
         })
 
 
+        mainViewModel.isLoading.observe(viewLifecycleOwner,{ loading ->
+            when {
+                loading -> {
+                    showShimmer()
+                }
+                else -> {
+                    hideShimmer()
+                }
+            }
+        })
         return binding.root
     }
+
+    private fun showShimmer(){
+        binding.shimmerLayout.startShimmer()
+        binding.shimmerLayout.isVisible = true
+        binding.recyclerViewAirports.isVisible = false
+    }
+
+    private fun hideShimmer(){
+        binding.shimmerLayout.hideShimmer()
+        binding.shimmerLayout.isVisible = false
+        binding.recyclerViewAirports.isVisible = true
+    }
+
     private fun setupRecyclerView(){
         binding.recyclerViewAirports.adapter = mAdapter
         binding.recyclerViewAirports.layoutManager = LinearLayoutManager(requireContext())
