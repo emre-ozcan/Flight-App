@@ -34,12 +34,11 @@ class FlightsFragment : Fragment() {
 
         setupRecycler()
         mainViewModel.getData()
+
         mainViewModel.airportsList.observe(viewLifecycleOwner,{ list ->
             mAdapter.setData(list)
             binding.recyclerViewFlights.scheduleLayoutAnimation()
         })
-
-
 
 
         return binding.root

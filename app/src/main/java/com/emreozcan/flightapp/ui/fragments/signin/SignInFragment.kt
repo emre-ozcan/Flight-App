@@ -81,10 +81,22 @@ class SignInFragment : Fragment() {
                 Handler(Looper.getMainLooper()).postDelayed({
                     binding.signinNameTextInputLayout.error = null
                 }, 3000)
+            }else if (name.length > 15){
+                binding.signinNameTextInputLayout.error = "Name lenght is too long!"
+                back = true
+                Handler(Looper.getMainLooper()).postDelayed({
+                    binding.signinNameTextInputLayout.error = null
+                }, 3000)
             }
 
             if (surname.length < 2) {
                 binding.signinSurnameTextInputLayout.error = "Surname lenght is too short!"
+                back = true
+                Handler(Looper.getMainLooper()).postDelayed({
+                    binding.signinSurnameTextInputLayout.error = null
+                }, 3000)
+            }else if (surname.length > 15){
+                binding.signinSurnameTextInputLayout.error = "Surname lenght is too long!"
                 back = true
                 Handler(Looper.getMainLooper()).postDelayed({
                     binding.signinSurnameTextInputLayout.error = null
@@ -97,9 +109,21 @@ class SignInFragment : Fragment() {
                 Handler(Looper.getMainLooper()).postDelayed({
                     binding.signinEmailTextInputLayout.error = null
                 }, 3000)
+            }else if (email.length >20){
+                binding.signinEmailTextInputLayout.error = "Email lenght is too long!"
+                back = true
+                Handler(Looper.getMainLooper()).postDelayed({
+                    binding.signinEmailTextInputLayout.error = null
+                }, 3000)
             }
             if (password.length < 6) {
                 binding.signinPasswordTextInputLayout.error = "Password lenght is too short!"
+                back = true
+                Handler(Looper.getMainLooper()).postDelayed({
+                    binding.signinPasswordTextInputLayout.error = null
+                }, 3000)
+            }else if (password.length>15){
+                binding.signinPasswordTextInputLayout.error = "Password lenght is too long!"
                 back = true
                 Handler(Looper.getMainLooper()).postDelayed({
                     binding.signinPasswordTextInputLayout.error = null

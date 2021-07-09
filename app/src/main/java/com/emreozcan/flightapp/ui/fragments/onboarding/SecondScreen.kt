@@ -21,8 +21,6 @@ class SecondScreen : Fragment() {
 
     private val mainViewModel: MainViewModel by viewModels()
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -12,8 +12,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.emreozcan.flightapp.R
 import com.emreozcan.flightapp.databinding.FragmentLoginBinding
-import com.emreozcan.flightapp.util.onDone
-import com.emreozcan.flightapp.util.showFieldSnackbar
 import com.emreozcan.flightapp.viewmodel.MainViewModel
 
 
@@ -36,15 +34,16 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id.action_loginFragment_to_signInFragment)
         }
 
-       binding.emailEditTextLogin.setOnEditorActionListener { _, actionId, _ ->
-           if (actionId == EditorInfo.IME_ACTION_DONE){
-               binding.passwordEditTextLogin.requestFocus()
-               return@setOnEditorActionListener true
-           }
-           false
-       }
+        binding.emailEditTextLogin.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                binding.passwordEditTextLogin.requestFocus()
+                return@setOnEditorActionListener true
+            }
+            false
+        }
+
         binding.passwordEditTextLogin.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE){
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
                 binding.buttonLogin.callOnClick()
                 return@setOnEditorActionListener true
             }
@@ -59,20 +58,34 @@ class LoginFragment : Fragment() {
             var back = false
 
             if (email.length < 6) {
-                binding.loginEmailTextInputLayout.error = "Email lenght is too short !"
+                binding.loginEmailTextInputLayout.error = "Email lenght is too short!"
+                Handler(Looper.getMainLooper()).postDelayed({
+                    binding.loginEmailTextInputLayout.error = null
+                }, 3000)
+                back = true
+            }else if (email.length>20){
+                binding.loginEmailTextInputLayout.error = "Email lenght is too long!"
                 Handler(Looper.getMainLooper()).postDelayed({
                     binding.loginEmailTextInputLayout.error = null
                 }, 3000)
                 back = true
             }
+
             if (password.length < 6) {
                 binding.loginPasswordTextInputLayout.error = "Password length is too short!"
                 Handler(Looper.getMainLooper()).postDelayed({
                     binding.loginPasswordTextInputLayout.error = null
                 }, 3000)
                 back = true
+            }else if (password.length >15){
+                binding.loginPasswordTextInputLayout.error = "Password length is too long!"
+                Handler(Looper.getMainLooper()).postDelayed({
+                    binding.loginPasswordTextInputLayout.error = null
+                }, 3000)
+                back = true
             }
-            if (back){
+
+            if (back) {
                 return@setOnClickListener
             }
             mainViewModel.login(email, password, this)

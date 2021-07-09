@@ -39,6 +39,7 @@ class AirportFlightsFragment : Fragment() {
 
         return binding.root
     }
+
     private fun setupRecyclerView(){
         binding.recyclerFlightsAirport.adapter = mAdapter
         binding.recyclerFlightsAirport.layoutManager = LinearLayoutManager(requireContext())

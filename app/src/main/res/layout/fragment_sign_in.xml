@@ -63,6 +63,7 @@
                 app:counterEnabled="true"
                 app:endIconMode="clear_text"
                 app:errorEnabled="true"
+                app:counterMaxLength="15"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView6">
@@ -87,6 +88,7 @@
                 app:counterEnabled="true"
                 app:endIconMode="clear_text"
                 app:errorEnabled="true"
+                app:counterMaxLength="15"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/signin_name_textInputLayout">
@@ -111,6 +113,7 @@
                 app:counterEnabled="true"
                 app:endIconMode="clear_text"
                 app:errorEnabled="true"
+                app:counterMaxLength="20"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/signin_surname_textInputLayout">
@@ -136,6 +139,7 @@
                 app:endIconMode="password_toggle"
                 app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:counterMaxLength="15"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/signin_email_textInputLayout">
                 <com.google.android.material.textfield.TextInputEditText

@@ -79,7 +79,13 @@ class ProfileFragment : Fragment() {
             var back = false
 
             if (name.length < 2) {
-                binding.profileNameTextInputLayout.error = "Name lenght is too short"
+                binding.profileNameTextInputLayout.error = "Name lenght is too short!"
+                back = true
+                Handler(Looper.getMainLooper()).postDelayed({
+                    binding.profileNameTextInputLayout.error = null
+                }, 3000)
+            }else if (name.length > 15){
+                binding.profileNameTextInputLayout.error = "Name lenght is too long!"
                 back = true
                 Handler(Looper.getMainLooper()).postDelayed({
                     binding.profileNameTextInputLayout.error = null
@@ -87,7 +93,13 @@ class ProfileFragment : Fragment() {
             }
 
             if (password.length < 6) {
-                binding.profilePasswordTextInputLayout.error = "Password lenght is too short"
+                binding.profilePasswordTextInputLayout.error = "Password lenght is too short!"
+                back = true
+                Handler(Looper.getMainLooper()).postDelayed({
+                    binding.profilePasswordTextInputLayout.error = null
+                }, 3000)
+            }else if (password.length > 15){
+                binding.profilePasswordTextInputLayout.error = "Password lenght is too long!"
                 back = true
                 Handler(Looper.getMainLooper()).postDelayed({
                     binding.profilePasswordTextInputLayout.error = null
@@ -95,7 +107,13 @@ class ProfileFragment : Fragment() {
             }
 
             if (email.length < 6) {
-                binding.profileEmailTextInputLayout.error = "Email lenght is too short"
+                binding.profileEmailTextInputLayout.error = "Email lenght is too short!"
+                back = true
+                Handler(Looper.getMainLooper()).postDelayed({
+                    binding.profileEmailTextInputLayout.error = null
+                }, 3000)
+            }else if (email.length >20 ){
+                binding.profileEmailTextInputLayout.error = "Email lenght is too long!"
                 back = true
                 Handler(Looper.getMainLooper()).postDelayed({
                     binding.profileEmailTextInputLayout.error = null
@@ -103,7 +121,7 @@ class ProfileFragment : Fragment() {
             }
 
             if (!email.contains("@")&& email.length>5 ){
-                binding.profileEmailTextInputLayout.error = "Please enter true format email"
+                binding.profileEmailTextInputLayout.error = "Please enter true format email!"
                 back = true
                 Handler(Looper.getMainLooper()).postDelayed({
                     binding.profileEmailTextInputLayout.error = null
@@ -111,12 +129,20 @@ class ProfileFragment : Fragment() {
             }
 
             if (surname.length < 2) {
-                binding.profileSurnameTextInputLayout.error = "Surname lenght is too short"
+                binding.profileSurnameTextInputLayout.error = "Surname lenght is too short!"
+                back = true
+                Handler(Looper.getMainLooper()).postDelayed({
+                    binding.profileSurnameTextInputLayout.error = null
+                }, 3000)
+            }else if (surname.length > 15){
+                binding.profileSurnameTextInputLayout.error = "Surname lenght is too long!"
                 back = true
                 Handler(Looper.getMainLooper()).postDelayed({
                     binding.profileSurnameTextInputLayout.error = null
                 }, 3000)
             }
+
+
             if (back){
                 return@setOnClickListener
             }

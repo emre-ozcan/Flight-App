@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emreozcan.flightapp.adapters.FlightsRowAdapter.FlightsViewHolder
 import com.emreozcan.flightapp.databinding.RowAirportDesignBinding
 import com.emreozcan.flightapp.models.Airports
-import com.emreozcan.flightapp.models.Flights
 import com.emreozcan.flightapp.ui.fragments.flights.FlightsFragmentDirections
 import com.emreozcan.flightapp.util.RecyclerDiffUtil
 
@@ -39,9 +38,13 @@ class FlightsRowAdapter: RecyclerView.Adapter<FlightsViewHolder>() {
 
     override fun onBindViewHolder(holder: FlightsViewHolder, position: Int) {
         holder.bind(airportsList[position])
+
         holder.binding.cardViewAirport.setOnClickListener {
-            val action = FlightsFragmentDirections.actionFlightsFragmentToAirportFlightsFragment(airportsList[position].flightList.toTypedArray())
+
+            val sendAirportList = airportsList[position].flightList.toTypedArray()
+            val action = FlightsFragmentDirections.actionFlightsFragmentToAirportFlightsFragment(sendAirportList)
             Navigation.findNavController(it).navigate(action)
+
         }
 
     }
