@@ -39,7 +39,6 @@ class AirportsFragment : Fragment() {
             binding.recyclerViewAirports.scheduleLayoutAnimation()
         })
 
-
         mainViewModel.isLoading.observe(viewLifecycleOwner,{ loading ->
             when {
                 loading -> {
@@ -50,6 +49,8 @@ class AirportsFragment : Fragment() {
                 }
             }
         })
+
+
         return binding.root
     }
 
