@@ -93,4 +93,9 @@ dependencies {
     //Crashlytics
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
+
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+    // Youtube Player Pierfrancesco Soffritti
+
+
 }
