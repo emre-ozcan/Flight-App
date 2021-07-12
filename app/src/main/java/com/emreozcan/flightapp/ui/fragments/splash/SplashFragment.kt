@@ -94,7 +94,6 @@ class SplashFragment : Fragment(), ForceUpdateChecker.OnUpdateNeedListener {
         }
 
 
-
         return binding.root
     }
     private fun handleForceUpdate(){
@@ -106,7 +105,7 @@ class SplashFragment : Fragment(), ForceUpdateChecker.OnUpdateNeedListener {
         remoteConfigDefaults[FORCE_UPDATE_REQUIRED] = false
 
         remoteConfig.setDefaultsAsync(remoteConfigDefaults)
-        remoteConfig.fetch(1).addOnCompleteListener { task ->
+        remoteConfig.fetch(60).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 remoteConfig.fetchAndActivate()
             }

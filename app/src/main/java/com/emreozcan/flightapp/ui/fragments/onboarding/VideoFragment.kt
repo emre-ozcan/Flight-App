@@ -35,23 +35,24 @@ class VideoFragment : Fragment() {
     private val mainViewModel: MainViewModel by viewModels()
 
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentVideoBinding.inflate(inflater, container, false)
+        val viewPager = activity?.findViewById<ViewPager2>(R.id.viewPager)
+
+        binding.buttonContinueVideo.setOnClickListener {
+            viewPager?.currentItem =  1
+        }
 
         val youTubePlayerFragment = YouTubePlayerSupportFragmentXKt.newInstance()
 
         val transaction = childFragmentManager.beginTransaction()
         transaction.add(R.id.youtubeLayout, youTubePlayerFragment).commit()
-
-        val viewPager = activity?.findViewById<ViewPager2>(R.id.viewPager)
-
-        binding.buttonContinueVideo.setOnClickListener {
-            viewPager?.currentItem = 1
-        }
 
         youTubePlayerFragment.initialize(YOUTUBE_PLAYER_KEY, object : OnInitializedListener {
             override fun onInitializationSuccess(p0: Provider?, p1: YouTubePlayer?, p2: Boolean) {
@@ -89,6 +90,7 @@ class VideoFragment : Fragment() {
 
         return binding.root
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

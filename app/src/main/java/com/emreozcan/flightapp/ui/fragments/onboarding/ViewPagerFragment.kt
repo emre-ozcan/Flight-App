@@ -32,6 +32,7 @@ class ViewPagerFragment : Fragment() {
 
         val adapter = ViewPagerAdapter(fragmentList,childFragmentManager,lifecycle)
 
+
         binding.viewPager.adapter = adapter
         binding.viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
             override fun onPageScrolled(

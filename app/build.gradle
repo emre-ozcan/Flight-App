@@ -5,6 +5,7 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
     id 'com.google.gms.google-services'
     id "kotlin-parcelize"
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -86,5 +87,10 @@ dependencies {
     // Dexter-Permission
     implementation 'com.karumi:dexter:6.2.3'
 
+    //Analytics
+    implementation 'com.google.firebase:firebase-analytics'
+
+    //Crashlytics
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
 }
