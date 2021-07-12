@@ -33,4 +33,8 @@ Force Update sayesinde uygulamanın versiyonu Firebase üzerinden yönetilir. G�
 
 ![image](https://user-images.githubusercontent.com/49096704/124750032-a504a700-df2d-11eb-912b-dba936847084.png)
 
+### Crashlytics
+![image](https://user-images.githubusercontent.com/49096704/125256965-9ccdb280-e305-11eb-9a23-25b5a20a660b.png)
+
+
 
