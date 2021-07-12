@@ -24,6 +24,7 @@
 - Shimmer Effect for RecyclerView
 - Youtube Player API
 - Crashlytics
+- Firebase Debug
 
 ### Force Update
 Force Update sayesinde uygulamanın versiyonu Firebase üzerinden yönetilir. Güncelleme yönetimi kolaylaştırılır.
@@ -36,5 +37,7 @@ Force Update sayesinde uygulamanın versiyonu Firebase üzerinden yönetilir. G�
 ### Crashlytics
 ![image](https://user-images.githubusercontent.com/49096704/125256965-9ccdb280-e305-11eb-9a23-25b5a20a660b.png)
 
+### Debug
 
+![image](https://user-images.githubusercontent.com/49096704/125261224-bcff7080-e309-11eb-8f94-60dae3ded80d.png)
 
