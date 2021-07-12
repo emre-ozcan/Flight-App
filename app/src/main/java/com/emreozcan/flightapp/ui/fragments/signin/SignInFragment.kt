@@ -16,6 +16,7 @@ import com.emreozcan.flightapp.databinding.FragmentSignInBinding
 import com.emreozcan.flightapp.util.showFieldSnackbar
 import com.emreozcan.flightapp.viewmodel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.analytics.FirebaseAnalytics
 
 
 class SignInFragment : Fragment() {
@@ -24,6 +25,10 @@ class SignInFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val mainViewModel: MainViewModel by viewModels()
+
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +39,8 @@ class SignInFragment : Fragment() {
         binding.closeImageViewSignup.setOnClickListener {
             findNavController().popBackStack()
         }
+
+        firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext())
 
         binding.nameEditTextSignup.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE){
@@ -133,6 +140,12 @@ class SignInFragment : Fragment() {
             if (back) {
                 return@setOnClickListener
             }
+
+            val bundle = Bundle().apply {
+                this.putString(FirebaseAnalytics.Param.METHOD,"signup")
+            }
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP,bundle)
+
 
             mainViewModel.signIn(
                 email,

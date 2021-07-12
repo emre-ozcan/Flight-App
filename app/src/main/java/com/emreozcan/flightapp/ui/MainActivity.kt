@@ -12,16 +12,23 @@ import com.emreozcan.flightapp.ui.fragments.airportflights.AirportFlightsFragmen
 import com.emreozcan.flightapp.ui.fragments.airports.AirportsFragment
 import com.emreozcan.flightapp.ui.fragments.profile.ProfileFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.karumi.dexter.Dexter
 
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
+
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
+
 
         binding.bottomNavigationView.background = null
         binding.bottomNavigationView.menu.getItem(1).isEnabled = false
@@ -46,6 +53,11 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+        val bundle = Bundle().apply {
+            this.putString("mainActivity","start")
+        }
+        firebaseAnalytics.logEvent("MainActivity_OnCreate",bundle)
+
 
     }
 
@@ -55,7 +67,20 @@ class MainActivity : AppCompatActivity() {
         return navHostFragment?.childFragmentManager?.fragments?.get(0)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        val bundle = Bundle().apply {
+            this.putString("mainActivity","finish")
+        }
+        firebaseAnalytics.logEvent("MainActivity_OnDestroy",bundle)
+    }
+
     override fun onBackPressed() {
+        val bundle = Bundle().apply {
+            this.putString("mainActivity","onBackPressed")
+        }
+        firebaseAnalytics.logEvent("MainActivity_OnBackPressed",bundle)
+
         if (getForegroundFragment() is AirportsFragment){
             MaterialAlertDialogBuilder(this).setMessage("Uygulamadan çıkmak istediğinize emin misiniz ?")
                 .setPositiveButton("Evet"){ dialog, which ->

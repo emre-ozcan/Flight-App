@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.emreozcan.flightapp.R
 import com.emreozcan.flightapp.databinding.FragmentLoginBinding
 import com.emreozcan.flightapp.viewmodel.MainViewModel
+import com.google.firebase.analytics.FirebaseAnalytics
 
 
 class LoginFragment : Fragment() {
@@ -22,11 +23,16 @@ class LoginFragment : Fragment() {
 
     private val mainViewModel: MainViewModel by viewModels()
 
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext())
 
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
@@ -52,6 +58,7 @@ class LoginFragment : Fragment() {
 
 
         binding.buttonLogin.setOnClickListener {
+
             val email = binding.emailEditTextLogin.text.toString().trim()
             val password = binding.passwordEditTextLogin.text.toString().trim()
 
@@ -88,6 +95,11 @@ class LoginFragment : Fragment() {
             if (back) {
                 return@setOnClickListener
             }
+            val bundle = Bundle().apply {
+                this.putString(FirebaseAnalytics.Param.METHOD,"login")
+            }
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN,bundle)
+
             mainViewModel.login(email, password, this)
 
         }
