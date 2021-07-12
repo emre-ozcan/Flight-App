@@ -23,6 +23,7 @@
 - Dexter Permission Library
 - Shimmer Effect for RecyclerView
 - Youtube Player API
+- Crashlytics
 
 ### Force Update
 Force Update sayesinde uygulamanın versiyonu Firebase üzerinden yönetilir. Güncelleme yönetimi kolaylaştırılır.
