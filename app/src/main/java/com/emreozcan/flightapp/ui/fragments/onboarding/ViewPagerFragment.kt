@@ -46,17 +46,10 @@ class ViewPagerFragment : Fragment() {
                 }
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels)
             }
-
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {
-                super.onPageScrollStateChanged(state)
-            }
         })
         return binding.root
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

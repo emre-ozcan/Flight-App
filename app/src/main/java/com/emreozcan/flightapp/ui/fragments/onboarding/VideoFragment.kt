@@ -38,6 +38,7 @@ class VideoFragment : Fragment() {
         binding.buttonContinueVideo?.setOnClickListener {
             viewPager?.currentItem =  1
         }
+
         val orientation = resources.configuration.orientation
         if (orientation == Configuration.ORIENTATION_LANDSCAPE){
             binding.youtubePlayerView.enterFullScreen()
@@ -54,6 +55,7 @@ class VideoFragment : Fragment() {
             }
 
             override fun onYouTubePlayerExitFullScreen() {
+                activity?.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             }
         })
 
