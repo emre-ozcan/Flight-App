@@ -33,9 +33,12 @@ class VideoFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentVideoBinding.inflate(inflater, container, false)
-        val viewPager = activity?.findViewById<ViewPager2>(R.id.viewPager)
+        var viewPager = requireActivity().findViewById<ViewPager2>(R.id.viewPager)
 
         binding.buttonContinueVideo?.setOnClickListener {
+            if (viewPager == null ){
+                viewPager = requireActivity().findViewById<ViewPager2>(R.id.viewPager)
+            }
             viewPager?.currentItem =  1
         }
 

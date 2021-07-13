@@ -32,10 +32,12 @@ class FirstScreen : Fragment() {
 
         startAnimations()
 
-        val viewPager = activity?.findViewById<ViewPager2>(R.id.viewPager)
-
+        var viewPager = activity?.findViewById<ViewPager2>(R.id.viewPager)
 
         binding.buttonContinue.setOnClickListener {
+            if (viewPager == null ){
+                viewPager = requireActivity().findViewById<ViewPager2>(R.id.viewPager)
+            }
             viewPager?.currentItem = 2
         }
 
