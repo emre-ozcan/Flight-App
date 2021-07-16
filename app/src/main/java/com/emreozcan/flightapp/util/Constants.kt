@@ -14,9 +14,13 @@ class Constants {
 
         // Remote Config Force Update
         const val STORE_URL = "store_url"
+        const val STORE_URL_DEFAULT = "https://play.google.com/store/apps/details?id=com.nczsoftware.waterreminderapp&hl=tr&gl=US"
         const val SUGGESTED_VERSION_CODE = "suggested_version_code"
+        const val SUGGESTED_VERSION_CODE_DEFAULT = 1
         const val LEAST_VERSION_CODE = "lesat_version_code"
+        const val LEAST_VERSION_CODE_DEFAULT = 1
         const val FORCE_UPDATE_REQUIRED = "force_update_required"
+        const val FORCE_UPDATE_REQUIRED_DEFAULT = false
         const val APP_VERSION_CODE = BuildConfig.VERSION_CODE
 
         // Yotube Player

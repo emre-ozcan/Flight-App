@@ -10,6 +10,4 @@ data class User(
     var userEmail: String,
     var userPassword: String,
     val flightHistoryList: List<Flights>
-):Parcelable {
-    constructor() :this("","","","", emptyList())
-}
+):Parcelable

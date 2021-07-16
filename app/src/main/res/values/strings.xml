@@ -2,4 +2,19 @@
     <string name="app_name">Flight App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="alert_call_permission_message">If you want to use this feature, you have to accept permission. Please accept this permission</string>
+    <string name="alert_call_title">Permission Needed</string>
+    <string name="alert_decline">Decline</string>
+    <string name="alert_okay">Okay</string>
+    <string name="musteri_vefat_etmistir">MUSTERI VEFAT ETMISTIR</string>
+    <string name="could_not_calculate">Could not calculate</string>
+    <string name="succesfully_logout">Succesfully Logout</string>
+    <string name="internet_connection">Internet Connection</string>
+    <string name="internet_connection_needed">\"If you want to use this application, you need internet connection \"</string>
+    <string name="new_update">New Update</string>
+    <string name="must_update">Application has a new version. If you want to use it, you have to update it.</string>
+    <string name="wanna_update">Application has a new version. Do you want to update it ?</string>
+    <string name="alert_yes">Yes</string>
+    <string name="alert_no">No</string>
+    <string name="close_application">Are you sure you want to close applicaiton ?</string>
 </resources>

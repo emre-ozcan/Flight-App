@@ -82,10 +82,10 @@ class MainActivity : AppCompatActivity() {
         firebaseAnalytics.logEvent("MainActivity_OnBackPressed",bundle)
 
         if (getForegroundFragment() is AirportsFragment){
-            MaterialAlertDialogBuilder(this).setMessage("Uygulamadan çıkmak istediğinize emin misiniz ?")
-                .setPositiveButton("Evet"){ dialog, which ->
+            MaterialAlertDialogBuilder(this).setMessage(getString(R.string.close_application))
+                .setPositiveButton(R.string.alert_yes){ dialog, which ->
                     super.onBackPressed()
-                }.setNegativeButton("Hayır"){ dialog, which ->
+                }.setNegativeButton(R.string.alert_no){ dialog, which ->
                 }.show()
         }else{
             super.onBackPressed()

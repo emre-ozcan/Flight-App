@@ -109,6 +109,7 @@
         android:layout_marginTop="24dp"
         android:background="@drawable/button_background"
         android:text="Logın"
+        android:clickable="false"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/login_password_textInputLayout"
         app:layout_constraintStart_toStartOf="@+id/login_password_textInputLayout"

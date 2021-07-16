@@ -11,6 +11,4 @@ data class Flights(
     var hour: String,
     var flightCode: String,
     var startAndTargetCode: String
-) : Parcelable {
-    constructor() : this("", "", "", "", "", "")
-}
+) : Parcelable

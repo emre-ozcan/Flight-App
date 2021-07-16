@@ -1,21 +1,17 @@
 package com.emreozcan.flightapp.ui.fragments.signin
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import androidx.activity.viewModels
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.emreozcan.flightapp.R
 import com.emreozcan.flightapp.databinding.FragmentSignInBinding
-import com.emreozcan.flightapp.util.showFieldSnackbar
 import com.emreozcan.flightapp.viewmodel.MainViewModel
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
 
 
@@ -27,7 +23,6 @@ class SignInFragment : Fragment() {
     private val mainViewModel: MainViewModel by viewModels()
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
-
 
 
     override fun onCreateView(
@@ -42,37 +37,9 @@ class SignInFragment : Fragment() {
 
         firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext())
 
-        binding.nameEditTextSignup.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE){
-                binding.surnameEditTextSignup.requestFocus()
-                return@setOnEditorActionListener true
-            }
-            false
-        }
-
-        binding.surnameEditTextSignup.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE){
-                binding.emailEditTextSignup.requestFocus()
-                return@setOnEditorActionListener true
-            }
-            false
-        }
-
-        binding.emailEditTextSignup.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE){
-                binding.passwordEditTextSignup.requestFocus()
-                return@setOnEditorActionListener true
-            }
-            false
-        }
-        binding.passwordEditTextSignup.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE){
-                binding.buttonSignup.callOnClick()
-                return@setOnEditorActionListener true
-            }
-            false
-        }
-
+        handleFocus()
+        shouldButtonClick()
+        handleDoOnTextChanged()
 
         binding.buttonSignup.setOnClickListener {
             val name = binding.nameEditTextSignup.text.toString().trim()
@@ -80,85 +47,145 @@ class SignInFragment : Fragment() {
             val email = binding.emailEditTextSignup.text.toString().trim()
             val password = binding.passwordEditTextSignup.text.toString().trim()
 
-            var back = false
-
-            if (name.length < 2) {
-                binding.signinNameTextInputLayout.error = "Name lenght is too short!"
-                back = true
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.signinNameTextInputLayout.error = null
-                }, 3000)
-            }else if (name.length > 15){
-                binding.signinNameTextInputLayout.error = "Name lenght is too long!"
-                back = true
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.signinNameTextInputLayout.error = null
-                }, 3000)
+            if (name.isNotEmpty()&&surname.isNotEmpty()&&email.isNotEmpty()&&password.isNotEmpty()){
+                signupButtonClicked(name,surname,email,password)
             }
-
-            if (surname.length < 2) {
-                binding.signinSurnameTextInputLayout.error = "Surname lenght is too short!"
-                back = true
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.signinSurnameTextInputLayout.error = null
-                }, 3000)
-            }else if (surname.length > 15){
-                binding.signinSurnameTextInputLayout.error = "Surname lenght is too long!"
-                back = true
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.signinSurnameTextInputLayout.error = null
-                }, 3000)
-            }
-
-            if (email.length < 6) {
-                binding.signinEmailTextInputLayout.error = "Email lenght is too short!"
-                back = true
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.signinEmailTextInputLayout.error = null
-                }, 3000)
-            }else if (email.length >20){
-                binding.signinEmailTextInputLayout.error = "Email lenght is too long!"
-                back = true
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.signinEmailTextInputLayout.error = null
-                }, 3000)
-            }
-            if (password.length < 6) {
-                binding.signinPasswordTextInputLayout.error = "Password lenght is too short!"
-                back = true
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.signinPasswordTextInputLayout.error = null
-                }, 3000)
-            }else if (password.length>15){
-                binding.signinPasswordTextInputLayout.error = "Password lenght is too long!"
-                back = true
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.signinPasswordTextInputLayout.error = null
-                }, 3000)
-            }
-
-            if (back) {
-                return@setOnClickListener
-            }
-
-            val bundle = Bundle().apply {
-                this.putString(FirebaseAnalytics.Param.METHOD,"signup")
-            }
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP,bundle)
-
-
-            mainViewModel.signIn(
-                email,
-                password,
-                name,
-                surname,
-                this
-            )
-
-
         }
 
         return binding.root
+    }
+
+    private fun signupButtonClicked(
+        name: String,
+        surname: String,
+        email: String,
+        password: String
+    ) {
+        val bundle = Bundle().apply {
+            this.putString(FirebaseAnalytics.Param.METHOD, "signup")
+        }
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, bundle)
+
+
+        mainViewModel.signIn(
+            email,
+            password,
+            name,
+            surname,
+            this
+        )
+    }
+
+    private fun shouldButtonClick() {
+        binding.buttonSignup.isClickable = !binding.signinNameTextInputLayout.isErrorEnabled
+                && !binding.signinSurnameTextInputLayout.isErrorEnabled && !binding.signinEmailTextInputLayout.isErrorEnabled
+                && !binding.signinPasswordTextInputLayout.isErrorEnabled
+
+        if (!binding.buttonSignup.isClickable) {
+            binding.buttonSignup.setBackgroundResource(R.drawable.button_notclickable_background)
+        } else {
+            binding.buttonSignup.setBackgroundResource(R.drawable.button_background)
+        }
+    }
+
+    private fun handleDoOnTextChanged() {
+        binding.nameEditTextSignup.doOnTextChanged { text, _, _, _ ->
+            val nameLenght = text!!.length
+            when {
+                nameLenght < 2 -> {
+                    binding.signinNameTextInputLayout.error = "Too short"
+                }
+                nameLenght > 15 -> {
+                    binding.signinNameTextInputLayout.error = "Too long"
+                }
+                else -> {
+                    binding.signinNameTextInputLayout.isErrorEnabled = false
+                }
+            }
+            shouldButtonClick()
+        }
+
+        binding.surnameEditTextSignup.doOnTextChanged { text, _, _, _ ->
+            val surnameLength = text!!.length
+            when {
+                surnameLength < 2 -> {
+                    binding.signinSurnameTextInputLayout.error = "Too short"
+                }
+                surnameLength > 15 -> {
+                    binding.signinSurnameTextInputLayout.error = "Too long"
+                }
+                else -> {
+                    binding.signinSurnameTextInputLayout.isErrorEnabled = false
+                }
+            }
+            shouldButtonClick()
+        }
+
+        binding.emailEditTextSignup.doOnTextChanged { text, _, _, _ ->
+            val emailLength = text!!.length
+            when {
+                emailLength < 6 -> {
+                    binding.signinEmailTextInputLayout.error = "Too short"
+                }
+                emailLength > 20 -> {
+                    binding.signinEmailTextInputLayout.error = "Too long"
+                }
+                else -> {
+                    binding.signinEmailTextInputLayout.isErrorEnabled = false
+                }
+            }
+            shouldButtonClick()
+        }
+
+        binding.passwordEditTextSignup.doOnTextChanged { text, _, _, _ ->
+            val passwordLength = text!!.length
+            when {
+                passwordLength < 6 -> {
+                    binding.signinPasswordTextInputLayout.error = "Too short"
+                }
+                passwordLength > 15 -> {
+                    binding.signinPasswordTextInputLayout.error = "Too long"
+                }
+                else -> {
+                    binding.signinPasswordTextInputLayout.isErrorEnabled = false
+                }
+            }
+            shouldButtonClick()
+        }
+
+    }
+
+    private fun handleFocus() {
+        binding.nameEditTextSignup.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                binding.surnameEditTextSignup.requestFocus()
+                return@setOnEditorActionListener true
+            }
+            false
+        }
+
+        binding.surnameEditTextSignup.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                binding.emailEditTextSignup.requestFocus()
+                return@setOnEditorActionListener true
+            }
+            false
+        }
+
+        binding.emailEditTextSignup.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                binding.passwordEditTextSignup.requestFocus()
+                return@setOnEditorActionListener true
+            }
+            false
+        }
+        binding.passwordEditTextSignup.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                binding.buttonSignup.callOnClick()
+                return@setOnEditorActionListener true
+            }
+            false
+        }
     }
 
     override fun onDestroyView() {
