@@ -75,10 +75,10 @@ class LoginFragment : Fragment() {
             emailTextLength = text!!.length
             when {
                 emailTextLength < 6 -> {
-                    binding.loginEmailTextInputLayout.error = "Too short"
+                    binding.loginEmailTextInputLayout.error = getString(R.string.too_short)
                 }
                 emailTextLength > 20 -> {
-                    binding.loginEmailTextInputLayout.error = "Too long"
+                    binding.loginEmailTextInputLayout.error = getString(R.string.too_long)
                 }
                 else -> {
                     binding.loginEmailTextInputLayout.isErrorEnabled = false
@@ -91,10 +91,10 @@ class LoginFragment : Fragment() {
             passwordTextLength = text!!.length
             when {
                 passwordTextLength < 6 -> {
-                    binding.loginPasswordTextInputLayout.error = "Too short"
+                    binding.loginPasswordTextInputLayout.error = getString(R.string.too_short)
                 }
                 passwordTextLength > 20 -> {
-                    binding.loginPasswordTextInputLayout.error = "Too long"
+                    binding.loginPasswordTextInputLayout.error = getString(R.string.too_long)
                 }
                 else -> {
                     binding.loginPasswordTextInputLayout.isErrorEnabled = false

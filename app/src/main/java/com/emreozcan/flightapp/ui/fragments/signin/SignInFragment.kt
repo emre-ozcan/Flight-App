@@ -93,10 +93,10 @@ class SignInFragment : Fragment() {
             val nameLenght = text!!.length
             when {
                 nameLenght < 2 -> {
-                    binding.signinNameTextInputLayout.error = "Too short"
+                    binding.signinNameTextInputLayout.error = getString(R.string.too_short)
                 }
                 nameLenght > 15 -> {
-                    binding.signinNameTextInputLayout.error = "Too long"
+                    binding.signinNameTextInputLayout.error = getString(R.string.too_long)
                 }
                 else -> {
                     binding.signinNameTextInputLayout.isErrorEnabled = false
@@ -109,10 +109,10 @@ class SignInFragment : Fragment() {
             val surnameLength = text!!.length
             when {
                 surnameLength < 2 -> {
-                    binding.signinSurnameTextInputLayout.error = "Too short"
+                    binding.signinSurnameTextInputLayout.error = getString(R.string.too_short)
                 }
                 surnameLength > 15 -> {
-                    binding.signinSurnameTextInputLayout.error = "Too long"
+                    binding.signinSurnameTextInputLayout.error = getString(R.string.too_long)
                 }
                 else -> {
                     binding.signinSurnameTextInputLayout.isErrorEnabled = false
@@ -125,10 +125,10 @@ class SignInFragment : Fragment() {
             val emailLength = text!!.length
             when {
                 emailLength < 6 -> {
-                    binding.signinEmailTextInputLayout.error = "Too short"
+                    binding.signinEmailTextInputLayout.error = getString(R.string.too_short)
                 }
                 emailLength > 20 -> {
-                    binding.signinEmailTextInputLayout.error = "Too long"
+                    binding.signinEmailTextInputLayout.error = getString(R.string.too_long)
                 }
                 else -> {
                     binding.signinEmailTextInputLayout.isErrorEnabled = false
@@ -141,10 +141,10 @@ class SignInFragment : Fragment() {
             val passwordLength = text!!.length
             when {
                 passwordLength < 6 -> {
-                    binding.signinPasswordTextInputLayout.error = "Too short"
+                    binding.signinPasswordTextInputLayout.error = getString(R.string.too_short)
                 }
                 passwordLength > 15 -> {
-                    binding.signinPasswordTextInputLayout.error = "Too long"
+                    binding.signinPasswordTextInputLayout.error = getString(R.string.too_long)
                 }
                 else -> {
                     binding.signinPasswordTextInputLayout.isErrorEnabled = false

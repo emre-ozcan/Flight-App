@@ -102,10 +102,10 @@ class ProfileFragment : Fragment() {
             val nameLenght = text!!.length
             when{
                 nameLenght<2 -> {
-                    binding.profileNameTextInputLayout.error = "Too short"
+                    binding.profileNameTextInputLayout.error = getString(R.string.too_short)
                 }
                 nameLenght>15 ->{
-                    binding.profileNameTextInputLayout.error = "Too long"
+                    binding.profileNameTextInputLayout.error = getString(R.string.too_long)
                 }
                 else -> {
                     binding.profileNameTextInputLayout.isErrorEnabled = false
@@ -118,10 +118,10 @@ class ProfileFragment : Fragment() {
             val surnameLength = text!!.length
             when{
                 surnameLength<2 -> {
-                    binding.profileSurnameTextInputLayout.error = "Too short"
+                    binding.profileSurnameTextInputLayout.error = getString(R.string.too_short)
                 }
                 surnameLength>15 ->{
-                    binding.profileSurnameTextInputLayout.error = "Too long"
+                    binding.profileSurnameTextInputLayout.error = getString(R.string.too_long)
                 }
                 else -> {
                     binding.profileSurnameTextInputLayout.isErrorEnabled = false
@@ -134,10 +134,10 @@ class ProfileFragment : Fragment() {
             val emailLength = text!!.length
             when{
                 emailLength<6 -> {
-                    binding.profileEmailTextInputLayout.error = "Too short"
+                    binding.profileEmailTextInputLayout.error = getString(R.string.too_short)
                 }
                 emailLength>20 ->{
-                    binding.profileEmailTextInputLayout.error = "Too long"
+                    binding.profileEmailTextInputLayout.error = getString(R.string.too_long)
                 }
                 else -> {
                     binding.profileEmailTextInputLayout.isErrorEnabled = false
@@ -150,10 +150,10 @@ class ProfileFragment : Fragment() {
             val passwordLength = text!!.length
             when{
                 passwordLength<6 -> {
-                    binding.profilePasswordTextInputLayout.error = "Too short"
+                    binding.profilePasswordTextInputLayout.error = getString(R.string.too_short)
                 }
                 passwordLength>15 ->{
-                    binding.profilePasswordTextInputLayout.error = "Too long"
+                    binding.profilePasswordTextInputLayout.error = getString(R.string.too_long)
                 }
                 else -> {
                     binding.profilePasswordTextInputLayout.isErrorEnabled = false

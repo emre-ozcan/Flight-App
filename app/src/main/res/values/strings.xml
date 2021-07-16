@@ -17,4 +17,6 @@
     <string name="alert_yes">Yes</string>
     <string name="alert_no">No</string>
     <string name="close_application">Are you sure you want to close applicaiton ?</string>
+    <string name="too_short">Too short</string>
+    <string name="too_long">Too long</string>
 </resources>
