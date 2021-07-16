@@ -52,6 +52,4 @@ class AirportsFlightsRowAdapter :
         flightList = list
         diffResult.dispatchUpdatesTo(this)
     }
-
-
 }

@@ -11,6 +11,4 @@ data class Airports(
     var phoneNumber: String,
     var latitudeLongitude: String,
     var flightList: List<Flights>
-) : Parcelable {
-    constructor() : this("", "", "", "", "", emptyList())
-}
+) : Parcelable

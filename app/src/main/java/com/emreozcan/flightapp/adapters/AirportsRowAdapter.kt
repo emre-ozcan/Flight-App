@@ -1,26 +1,29 @@
 package com.emreozcan.flightapp.adapters
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.emreozcan.flightapp.BuildConfig
+import com.emreozcan.flightapp.R
 import com.emreozcan.flightapp.databinding.RowAirportDesignBinding
 import com.emreozcan.flightapp.models.Airports
 import com.emreozcan.flightapp.ui.fragments.airports.AirportsFragmentDirections
 import com.emreozcan.flightapp.util.RecyclerDiffUtil
-import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener
 import com.karumi.dexter.listener.single.PermissionListener
 
 
@@ -29,7 +32,7 @@ class AirportsRowAdapter : RecyclerView.Adapter<AirportsRowAdapter.MyViewHolder>
 
     private var airportsList = emptyList<Airports>()
     private var position = 0
-    private lateinit var view: View
+    private lateinit var context: Context
 
     class MyViewHolder(val binding: RowAirportDesignBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -56,7 +59,7 @@ class AirportsRowAdapter : RecyclerView.Adapter<AirportsRowAdapter.MyViewHolder>
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.bind(airportsList[position])
 
-        this.view = holder.itemView
+        this.context = holder.itemView.context
 
 
         holder.binding.airportCall.setOnClickListener {
@@ -99,16 +102,20 @@ class AirportsRowAdapter : RecyclerView.Adapter<AirportsRowAdapter.MyViewHolder>
 
         val intent =
             Intent(Intent.ACTION_CALL, Uri.parse("tel:${airportsList[position].phoneNumber}"))
-        view.context.startActivity(intent)
+        context.startActivity(intent)
 
     }
 
     override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
-        Toast.makeText(
-            view.context,
-            "If you want to use this feature, you have to accept permission",
-            Toast.LENGTH_LONG
-        ).show()
+
+        MaterialAlertDialogBuilder(context).setTitle(context.getString(R.string.alert_call_title))
+            .setMessage(context.getString(R.string.alert_call_permission_message))
+            .setNegativeButton(context.getString(R.string.alert_decline)){ _, _ ->
+
+            }.setPositiveButton(context.getString(R.string.alert_okay)){ _, _ ->
+                context.startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + BuildConfig.APPLICATION_ID)))
+
+            }.show()
     }
 
     override fun onPermissionRationaleShouldBeShown(p0: PermissionRequest?, p1: PermissionToken?) {

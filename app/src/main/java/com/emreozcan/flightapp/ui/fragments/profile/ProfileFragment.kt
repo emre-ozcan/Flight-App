@@ -1,23 +1,20 @@
 package com.emreozcan.flightapp.ui.fragments.profile
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.emreozcan.flightapp.R
 import com.emreozcan.flightapp.databinding.FragmentProfileBinding
 import com.emreozcan.flightapp.models.User
-import com.emreozcan.flightapp.util.showFieldSnackbar
 import com.emreozcan.flightapp.viewmodel.MainViewModel
-import com.google.android.material.snackbar.Snackbar
 
 
 class ProfileFragment : Fragment() {
@@ -36,7 +33,7 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-
+        //TODO databindingle yap
         val planeAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.plane_anim)
         binding.imageView17.startAnimation(planeAnim)
 
@@ -59,99 +56,111 @@ class ProfileFragment : Fragment() {
                 userCurrent = userLogin
             }
         })
+
         binding.buttonFlightHistory.setOnClickListener {
             val action = ProfileFragmentDirections.actionActionProfileToFlightHistoryFragment(userCurrent.flightHistoryList.toTypedArray())
             Navigation.findNavController(it).navigate(action)
         }
+
         binding.buttonLogout.setOnClickListener {
-            Toast.makeText(requireContext(), "Succesfully Logout", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), getString(R.string.succesfully_logout), Toast.LENGTH_LONG).show()
             mainViewModel.logout()
             findNavController().navigate(R.id.action_action_profile_to_loginActivity)
             activity?.finish()
         }
+        shouldButtonClick()
+        handleDoOnTextChanged()
 
         binding.buttonUpdate.setOnClickListener {
             val name = binding.profileNameEditTextSignup.text.toString().trim()
             val password = binding.profilePasswordTextViewSignup.text.toString().trim()
             val email = binding.profileEmailEditTextSignup.text.toString().trim()
             val surname = binding.profileSurnameEditTextSignup.text.toString().trim()
-
-            var back = false
-
-            if (name.length < 2) {
-                binding.profileNameTextInputLayout.error = "Name lenght is too short!"
-                back = true
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.profileNameTextInputLayout.error = null
-                }, 3000)
-            }else if (name.length > 15){
-                binding.profileNameTextInputLayout.error = "Name lenght is too long!"
-                back = true
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.profileNameTextInputLayout.error = null
-                }, 3000)
+            if (name.isNotEmpty()&&password.isNotEmpty()&&email.isNotEmpty()&&surname.isNotEmpty()){
+                mainViewModel.changeUserInformations(name, surname, email, password, requireContext())
             }
-
-            if (password.length < 6) {
-                binding.profilePasswordTextInputLayout.error = "Password lenght is too short!"
-                back = true
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.profilePasswordTextInputLayout.error = null
-                }, 3000)
-            }else if (password.length > 15){
-                binding.profilePasswordTextInputLayout.error = "Password lenght is too long!"
-                back = true
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.profilePasswordTextInputLayout.error = null
-                }, 3000)
-            }
-
-            if (email.length < 6) {
-                binding.profileEmailTextInputLayout.error = "Email lenght is too short!"
-                back = true
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.profileEmailTextInputLayout.error = null
-                }, 3000)
-            }else if (email.length >20 ){
-                binding.profileEmailTextInputLayout.error = "Email lenght is too long!"
-                back = true
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.profileEmailTextInputLayout.error = null
-                }, 3000)
-            }
-
-            if (!email.contains("@")&& email.length>5 ){
-                binding.profileEmailTextInputLayout.error = "Please enter true format email!"
-                back = true
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.profileEmailTextInputLayout.error = null
-                }, 3000)
-            }
-
-            if (surname.length < 2) {
-                binding.profileSurnameTextInputLayout.error = "Surname lenght is too short!"
-                back = true
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.profileSurnameTextInputLayout.error = null
-                }, 3000)
-            }else if (surname.length > 15){
-                binding.profileSurnameTextInputLayout.error = "Surname lenght is too long!"
-                back = true
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.profileSurnameTextInputLayout.error = null
-                }, 3000)
-            }
-
-
-            if (back){
-                return@setOnClickListener
-            }
-
-            mainViewModel.changeUserInformations(name, surname, email, password, requireContext())
-
         }
 
         return binding.root
+    }
+    private fun shouldButtonClick() {
+        binding.buttonUpdate.isClickable = !binding.profileNameTextInputLayout.isErrorEnabled
+                && !binding.profileSurnameTextInputLayout.isErrorEnabled && !binding.profileEmailTextInputLayout.isErrorEnabled
+                && !binding.profilePasswordTextInputLayout.isErrorEnabled
+
+        if (!binding.buttonUpdate.isClickable) {
+            binding.buttonUpdate.setBackgroundResource(R.drawable.button_notclickable_background)
+        } else {
+            binding.buttonUpdate.setBackgroundResource(R.drawable.button_background)
+        }
+    }
+
+
+
+    private fun handleDoOnTextChanged() {
+        binding.profileNameEditTextSignup.doOnTextChanged { text, _, _, _ ->
+            val nameLenght = text!!.length
+            when{
+                nameLenght<2 -> {
+                    binding.profileNameTextInputLayout.error = "Too short"
+                }
+                nameLenght>15 ->{
+                    binding.profileNameTextInputLayout.error = "Too long"
+                }
+                else -> {
+                    binding.profileNameTextInputLayout.isErrorEnabled = false
+                }
+            }
+            shouldButtonClick()
+        }
+
+        binding.profileSurnameEditTextSignup.doOnTextChanged { text, _, _, _ ->
+            val surnameLength = text!!.length
+            when{
+                surnameLength<2 -> {
+                    binding.profileSurnameTextInputLayout.error = "Too short"
+                }
+                surnameLength>15 ->{
+                    binding.profileSurnameTextInputLayout.error = "Too long"
+                }
+                else -> {
+                    binding.profileSurnameTextInputLayout.isErrorEnabled = false
+                }
+            }
+            shouldButtonClick()
+        }
+
+        binding.profileEmailEditTextSignup.doOnTextChanged { text, _, _, _ ->
+            val emailLength = text!!.length
+            when{
+                emailLength<6 -> {
+                    binding.profileEmailTextInputLayout.error = "Too short"
+                }
+                emailLength>20 ->{
+                    binding.profileEmailTextInputLayout.error = "Too long"
+                }
+                else -> {
+                    binding.profileEmailTextInputLayout.isErrorEnabled = false
+                }
+            }
+            shouldButtonClick()
+        }
+
+        binding.profilePasswordTextViewSignup.doOnTextChanged { text, _, _, _ ->
+            val passwordLength = text!!.length
+            when{
+                passwordLength<6 -> {
+                    binding.profilePasswordTextInputLayout.error = "Too short"
+                }
+                passwordLength>15 ->{
+                    binding.profilePasswordTextInputLayout.error = "Too long"
+                }
+                else -> {
+                    binding.profilePasswordTextInputLayout.isErrorEnabled = false
+                }
+            }
+            shouldButtonClick()
+        }
     }
 
     override fun onDestroyView() {

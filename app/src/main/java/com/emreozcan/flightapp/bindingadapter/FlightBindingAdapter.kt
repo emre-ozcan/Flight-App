@@ -2,6 +2,7 @@ package com.emreozcan.flightapp.bindingadapter
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.emreozcan.flightapp.R
 import com.emreozcan.flightapp.util.TimeDifference
 import com.emreozcan.flightapp.util.difference
 
@@ -25,16 +26,17 @@ class FlightBindingAdapter {
 
             when {
                 difference.hours > 0 && difference.minutes > 0 -> {
-                    textView.text = "${difference.hours}h ${difference.minutes}m"
+                    "${difference.hours}h ${difference.minutes}m".also { textView.text = it }
                 }
                 difference.hours < 1 && difference.minutes > 0 -> {
-                    textView.text = "${difference.minutes}m"
+                    "${difference.minutes}m".also { textView.text = it }
                 }
                 difference.hours>0 && difference.minutes<1 -> {
-                    textView.text = "${difference.hours}h"
+                    "${difference.hours}h".also { textView.text = it }
                 }
                 else -> {
-                    textView.text = "MUSTERI VEFAT ETMISTIR"
+                    //TODO resoruceden al
+                    textView.text = textView.context.getString(R.string.musteri_vefat_etmistir)
                 }
             }
 
@@ -49,6 +51,8 @@ class FlightBindingAdapter {
             }else if (splitString.contains(";")){
                 val timeArr = splitString.split(";")
                 textView.text = timeArr[index.toInt()]
+            }else{
+                textView.context.getString(R.string.could_not_calculate).also { textView.text = it }
             }
         }
 

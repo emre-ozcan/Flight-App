@@ -17,9 +17,13 @@ import com.emreozcan.flightapp.R
 import com.emreozcan.flightapp.databinding.FragmentSplashBinding
 import com.emreozcan.flightapp.util.Constants
 import com.emreozcan.flightapp.util.Constants.Companion.FORCE_UPDATE_REQUIRED
+import com.emreozcan.flightapp.util.Constants.Companion.FORCE_UPDATE_REQUIRED_DEFAULT
 import com.emreozcan.flightapp.util.Constants.Companion.LEAST_VERSION_CODE
+import com.emreozcan.flightapp.util.Constants.Companion.LEAST_VERSION_CODE_DEFAULT
 import com.emreozcan.flightapp.util.Constants.Companion.STORE_URL
+import com.emreozcan.flightapp.util.Constants.Companion.STORE_URL_DEFAULT
 import com.emreozcan.flightapp.util.Constants.Companion.SUGGESTED_VERSION_CODE
+import com.emreozcan.flightapp.util.Constants.Companion.SUGGESTED_VERSION_CODE_DEFAULT
 import com.emreozcan.flightapp.util.ForceUpdateChecker
 import com.emreozcan.flightapp.viewmodel.MainViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -86,9 +90,9 @@ class SplashFragment : Fragment(), ForceUpdateChecker.OnUpdateNeedListener {
             }
 
         } else {
-            MaterialAlertDialogBuilder(requireContext()).setTitle("İnternet Bağlantısı Yok")
-                .setMessage("Uygulamanın çalışabilmesi için internet bağlantısına ihtiyaç vardır !")
-                .setPositiveButton("Tamam") { dialog, which ->
+            MaterialAlertDialogBuilder(requireContext()).setTitle(getString(R.string.internet_connection))
+                .setMessage(getString(R.string.internet_connection_needed))
+                .setPositiveButton(R.string.alert_okay) { dialog, which ->
                     startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
                 }.setCancelable(false).show()
         }
@@ -98,11 +102,10 @@ class SplashFragment : Fragment(), ForceUpdateChecker.OnUpdateNeedListener {
     }
     private fun handleForceUpdate(){
         val remoteConfigDefaults = hashMapOf<String, Any>()
-        remoteConfigDefaults[STORE_URL] =
-            "https://play.google.com/store/apps/details?id=com.nczsoftware.waterreminderapp&hl=tr&gl=US"
-        remoteConfigDefaults[SUGGESTED_VERSION_CODE] = 1
-        remoteConfigDefaults[LEAST_VERSION_CODE] = 1
-        remoteConfigDefaults[FORCE_UPDATE_REQUIRED] = false
+        remoteConfigDefaults[STORE_URL] = STORE_URL_DEFAULT
+        remoteConfigDefaults[SUGGESTED_VERSION_CODE] = SUGGESTED_VERSION_CODE_DEFAULT
+        remoteConfigDefaults[LEAST_VERSION_CODE] = LEAST_VERSION_CODE_DEFAULT
+        remoteConfigDefaults[FORCE_UPDATE_REQUIRED] = FORCE_UPDATE_REQUIRED_DEFAULT
 
         remoteConfig.setDefaultsAsync(remoteConfigDefaults)
         remoteConfig.fetch(60).addOnCompleteListener { task ->
@@ -135,21 +138,21 @@ class SplashFragment : Fragment(), ForceUpdateChecker.OnUpdateNeedListener {
     }
 
     override fun onUpdateNeed(updateUrl: String, isForce: Boolean) {
+        updateNeed = true
         if (isForce){
-            updateNeed = true
-            MaterialAlertDialogBuilder(requireContext()).setTitle("Yeni Bir Güncelleme Var")
-                .setMessage("Uygulamanın yeni bir sürümü mevcutur kullanmak için lütfen güncelleme yapınız !")
-                .setPositiveButton("Tamam"){ dialog,which ->
+
+            MaterialAlertDialogBuilder(requireContext()).setTitle(getString(R.string.new_update))
+                .setMessage(getString(R.string.must_update))
+                .setPositiveButton(R.string.alert_okay){ dialog,which ->
                     goToPlayStore(updateUrl)
                 }.setCancelable(false).show()
         }else{
-            updateNeed = true
-            MaterialAlertDialogBuilder(requireContext()).setTitle("Yeni Bir Güncelleme Var")
-                .setMessage("Uygulamanın yeni bir sürümü mevcutur güncellemek ister misiniz ?")
-                .setPositiveButton("Evet"){ dialog,which ->
+            MaterialAlertDialogBuilder(requireContext()).setTitle(R.string.new_update)
+                .setMessage(getString(R.string.wanna_update))
+                .setPositiveButton(getString(R.string.alert_yes)){ dialog, which ->
                     goToPlayStore(updateUrl)
                 }
-                .setNegativeButton("Hayır"){ dialog,which ->
+                .setNegativeButton(getString(R.string.alert_no)){ dialog, which ->
                     val handler = Handler(Looper.getMainLooper())
                     handler.postDelayed({
                         when {

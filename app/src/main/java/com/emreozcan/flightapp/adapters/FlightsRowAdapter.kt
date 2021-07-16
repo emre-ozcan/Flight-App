@@ -58,6 +58,4 @@ class FlightsRowAdapter: RecyclerView.Adapter<FlightsViewHolder>() {
         airportsList = list
         diffResult.dispatchUpdatesTo(this)
     }
-
-
 }

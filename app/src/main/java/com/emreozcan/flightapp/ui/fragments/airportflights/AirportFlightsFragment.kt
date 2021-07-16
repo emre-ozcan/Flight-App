@@ -16,6 +16,7 @@ import com.emreozcan.flightapp.ui.fragments.map.MapsFragmentArgs
 class AirportFlightsFragment : Fragment() {
 
     private val args by navArgs<AirportFlightsFragmentArgs>()
+    //TODO val args: AdditionalPropertiesFragmentArgs by navArgs()
 
 
     private var _binding: FragmentAirportFlightsBinding? = null
@@ -32,6 +33,7 @@ class AirportFlightsFragment : Fragment() {
         _binding = FragmentAirportFlightsBinding.inflate(inflater,container,false)
 
         setupRecyclerView()
+
         mAdapter.setData(args.flightList.toList()).apply {
             binding.recyclerFlightsAirport.scheduleLayoutAnimation()
         }
@@ -41,6 +43,7 @@ class AirportFlightsFragment : Fragment() {
     }
 
     private fun setupRecyclerView(){
+        //TODO recycler databinding
         binding.recyclerFlightsAirport.adapter = mAdapter
         binding.recyclerFlightsAirport.layoutManager = LinearLayoutManager(requireContext())
     }
