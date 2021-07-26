@@ -69,8 +69,8 @@ class AirportsRowAdapter : RecyclerView.Adapter<AirportsRowAdapter.MyViewHolder>
         }
 
         holder.binding.airportMap.setOnClickListener {
-            val sendLocationData = airportsList[position].latitudeLongitude
-            val sendAirportName = airportsList[position].airportName
+            val sendLocationData = airportsList[position].latitudeLongitude!!
+            val sendAirportName = airportsList[position].airportName!!
             val action = AirportsFragmentDirections.actionActionAirportsToMapsFragment(
                 sendLocationData,
                 sendAirportName
@@ -79,7 +79,7 @@ class AirportsRowAdapter : RecyclerView.Adapter<AirportsRowAdapter.MyViewHolder>
         }
 
         holder.binding.cardViewAirport.setOnClickListener {
-            val sendFlightList = airportsList[position].flightList.toTypedArray()
+            val sendFlightList = airportsList[position].flightList!!.toTypedArray()
             val action = AirportsFragmentDirections.actionActionAirportsToAirportFlightsFragment(
                 sendFlightList
             )

@@ -34,19 +34,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val database = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
+    private val dataStore = DataStoreRepository(application.applicationContext)
 
     val airportsList: MutableLiveData<List<Airports>> = MutableLiveData()
+
     val currentUser = auth.currentUser
-
     val userLogin: MutableLiveData<User> = MutableLiveData()
-
-    val dataStore = DataStoreRepository(application.applicationContext)
 
     val readOnboarding = dataStore.readOnboarding.asLiveData()
 
     val isLoading: MutableLiveData<Boolean> = MutableLiveData(true)
 
-
+    /**DataStore*/
     fun saveOnboarding() {
         viewModelScope.launch {
             dataStore.onBoardingShowed()
@@ -54,6 +53,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 
+    /**Push Data to Firebase*/
     fun pushData() {
         val f1 = Flights("Turkish Airlines", "09:45;11:45", "20", "Hour", "TK1919", "SAW,SZF")
         val f2 = Flights("Pegasus", "08:50;12:45", "20", "Hour", "TK1919", "ABC,DEF")
@@ -97,6 +97,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
+    /**Get Data From Firebase*/
     fun getData() {
         isLoading.value = true
         var tempList = arrayListOf<Airports>()
@@ -120,12 +121,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         flightHashList.forEach {
                             val flight =
                                 Flights(
-                                    it.get("companyName")!!,
-                                    it.get("flightStartAndFinishTime")!!,
-                                    it.get("capacity")!!,
-                                    it.get("hour")!!,
-                                    it.get("flightCode")!!,
-                                    it.get("startAndTargetCode")!!
+                                    it.get("companyName"),
+                                    it.get("flightStartAndFinishTime"),
+                                    it.get("capacity"),
+                                    it.get("hour"),
+                                    it.get("flightCode"),
+                                    it.get("startAndTargetCode")
                                 )
                             flightList.add(flight)
                         }
@@ -142,7 +143,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         tempList.add(tempAirport)
                     }
                 }
-                if (!tempList.isNullOrEmpty()) {
+                if (tempList.isNotEmpty()) {
                     airportsList.value = tempList
                     isLoading.value = false
                 }
@@ -217,12 +218,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                             flightHashList.forEach {
                                 val flight =
                                     Flights(
-                                        it["companyName"]!!,
-                                        it["flightStartAndFinishTime"]!!,
-                                        it["capacity"]!!,
-                                        it["hour"]!!,
-                                        it["flightCode"]!!,
-                                        it["startAndTargetCode"]!!
+                                        it["companyName"],
+                                        it["flightStartAndFinishTime"],
+                                        it["capacity"],
+                                        it["hour"],
+                                        it["flightCode"],
+                                        it["startAndTargetCode"]
                                     )
                                 flightList.add(flight)
                             }
@@ -251,8 +252,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         var isChanged = false
 
         val credential = EmailAuthProvider.getCredential(
-            userLogin.value!!.userEmail,
-            userLogin.value!!.userPassword
+            userLogin.value!!.userEmail!!,
+            userLogin.value!!.userPassword!!
         )
 
         currentUser!!.reauthenticate(credential).addOnFailureListener { exception ->

@@ -1,10 +1,8 @@
 package com.emreozcan.flightapp.bindingadapter
 
 import android.view.View
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.emreozcan.flightapp.adapters.AirportsFlightsRowAdapter

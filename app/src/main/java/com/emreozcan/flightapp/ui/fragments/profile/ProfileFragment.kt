@@ -58,7 +58,7 @@ class ProfileFragment : Fragment() {
         })
 
         binding.buttonFlightHistory.setOnClickListener {
-            val action = ProfileFragmentDirections.actionActionProfileToFlightHistoryFragment(userCurrent.flightHistoryList.toTypedArray())
+            val action = ProfileFragmentDirections.actionActionProfileToFlightHistoryFragment(userCurrent.flightHistoryList!!.toTypedArray())
             Navigation.findNavController(it).navigate(action)
         }
 

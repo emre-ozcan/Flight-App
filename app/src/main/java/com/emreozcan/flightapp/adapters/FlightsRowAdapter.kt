@@ -41,7 +41,7 @@ class FlightsRowAdapter: RecyclerView.Adapter<FlightsViewHolder>() {
 
         holder.binding.cardViewAirport.setOnClickListener {
 
-            val sendAirportList = airportsList[position].flightList.toTypedArray()
+            val sendAirportList = airportsList[position].flightList!!.toTypedArray()
             val action = FlightsFragmentDirections.actionFlightsFragmentToAirportFlightsFragment(sendAirportList)
             Navigation.findNavController(it).navigate(action)
 
