@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.emreozcan.flightapp.R
 import com.emreozcan.flightapp.adapters.AirportsFlightsRowAdapter
 import com.emreozcan.flightapp.databinding.FragmentFlightHistoryBinding
 import com.emreozcan.flightapp.ui.fragments.airportflights.AirportFlightsFragmentArgs
+import com.emreozcan.flightapp.util.setupRecyclerView
 
 
 class FlightHistoryFragment : Fragment() {
@@ -18,7 +18,8 @@ class FlightHistoryFragment : Fragment() {
     private var _binding : FragmentFlightHistoryBinding? = null
     private val binding get() = _binding!!
 
-    private val args by navArgs<FlightHistoryFragmentArgs>()
+    private val args: FlightHistoryFragmentArgs by navArgs()
+
     private val mAdapter by lazy { AirportsFlightsRowAdapter() }
 
 
@@ -28,7 +29,8 @@ class FlightHistoryFragment : Fragment() {
     ): View {
         _binding = FragmentFlightHistoryBinding.inflate(inflater,container,false)
 
-        setupRecycler()
+        binding.flightHistoryRecyclerView.setupRecyclerView(mAdapter,LinearLayoutManager(requireContext()))
+
 
         mAdapter.setData(args.flightList.toList()).apply {
             binding.flightHistoryRecyclerView.scheduleLayoutAnimation()
@@ -38,10 +40,6 @@ class FlightHistoryFragment : Fragment() {
         return binding.root
     }
 
-    private fun setupRecycler(){
-        binding.flightHistoryRecyclerView.adapter = mAdapter
-        binding.flightHistoryRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

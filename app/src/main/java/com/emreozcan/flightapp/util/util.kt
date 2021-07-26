@@ -1,10 +1,14 @@
 package com.emreozcan.flightapp.util
 
-import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.EditText
-import com.google.android.material.snackbar.Snackbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
-fun showFieldSnackbar(view: View){
-    Snackbar.make(view,"Field/s could not be empty", Snackbar.LENGTH_LONG).setAction("Okay"){}.show()
+fun <T : RecyclerView.ViewHolder?> RecyclerView.setupRecyclerView(
+    adapter: RecyclerView.Adapter<T>,
+    layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(
+        this.context
+    )
+) {
+    this.adapter = adapter
+    this.layoutManager = layoutManager
 }

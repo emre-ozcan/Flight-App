@@ -12,6 +12,7 @@ import com.emreozcan.flightapp.R
 import com.emreozcan.flightapp.adapters.AirportsRowAdapter
 import com.emreozcan.flightapp.adapters.FlightsRowAdapter
 import com.emreozcan.flightapp.databinding.FragmentFlightsBinding
+import com.emreozcan.flightapp.util.setupRecyclerView
 import com.emreozcan.flightapp.viewmodel.MainViewModel
 
 
@@ -30,22 +31,14 @@ class FlightsFragment : Fragment() {
     ): View {
 
         _binding = FragmentFlightsBinding.inflate(inflater,container,false)
+        binding.lifecycleOwner = this
+        binding.adapter = mAdapter
+        binding.mainViewModel = mainViewModel
 
-
-        setupRecycler()
         mainViewModel.getData()
-
-        mainViewModel.airportsList.observe(viewLifecycleOwner,{ list ->
-            mAdapter.setData(list)
-            binding.recyclerViewFlights.scheduleLayoutAnimation()
-        })
 
 
         return binding.root
-    }
-    private fun setupRecycler(){
-        binding.recyclerViewFlights.adapter = mAdapter
-        binding.recyclerViewFlights.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
     }
 
     override fun onDestroyView() {

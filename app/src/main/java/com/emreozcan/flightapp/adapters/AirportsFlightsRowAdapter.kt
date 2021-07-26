@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emreozcan.flightapp.databinding.RowCardFlightDesignBinding
 import com.emreozcan.flightapp.models.Flights
 import com.emreozcan.flightapp.util.RecyclerDiffUtil
-import com.emreozcan.flightapp.util.TimeDifference
-import com.emreozcan.flightapp.util.difference
 
 class AirportsFlightsRowAdapter :
     RecyclerView.Adapter<AirportsFlightsRowAdapter.AirportFlightsViewHolder>() {
