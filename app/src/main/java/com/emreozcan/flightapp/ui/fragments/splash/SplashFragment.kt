@@ -24,6 +24,7 @@ import com.emreozcan.flightapp.util.Constants.Companion.STORE_URL
 import com.emreozcan.flightapp.util.Constants.Companion.STORE_URL_DEFAULT
 import com.emreozcan.flightapp.util.Constants.Companion.SUGGESTED_VERSION_CODE
 import com.emreozcan.flightapp.util.Constants.Companion.SUGGESTED_VERSION_CODE_DEFAULT
+import com.emreozcan.flightapp.util.DataResult
 import com.emreozcan.flightapp.util.ForceUpdateChecker
 import com.emreozcan.flightapp.viewmodel.MainViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -53,6 +54,8 @@ class SplashFragment : Fragment(), ForceUpdateChecker.OnUpdateNeedListener {
         hasInternetConnection = mainViewModel.hasInternetConnection()
         if (hasInternetConnection){
             handleForceUpdate()
+        }else{
+            mainViewModel.dataResult.value = DataResult.Error("There is any Internet Connection !")
         }
     }
 

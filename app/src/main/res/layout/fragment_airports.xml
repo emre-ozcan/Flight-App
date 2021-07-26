@@ -17,6 +17,32 @@
         android:layout_height="match_parent"
         tools:context=".ui.fragments.airports.AirportsFragment">
 
+        <TextView
+            android:id="@+id/textViewError"
+            visibilityDataResult="@{mainViewModel.dataResult}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Something went wrong :("
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewError"
+            app:layout_constraintStart_toStartOf="@+id/imageViewError"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewError" />
+
+        <ImageView
+            android:id="@+id/imageViewError"
+            visibilityDataResult="@{mainViewModel.dataResult}"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:alpha="0.5"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.42000002"
+            app:srcCompat="@drawable/ic_error" />
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -48,7 +74,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            visibilityList="@{mainViewModel.airportsList}"
+            visibilityDataResult="@{mainViewModel.dataResult}"
             android:layout_marginBottom="8dp"
             android:layoutAnimation="@anim/anim_recycler"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -65,7 +91,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            visibilityList="@{mainViewModel.airportsList}"
+            visibilityDataResult="@{mainViewModel.dataResult}"
             android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

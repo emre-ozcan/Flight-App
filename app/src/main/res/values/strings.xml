@@ -10,7 +10,7 @@
     <string name="could_not_calculate">Could not calculate</string>
     <string name="succesfully_logout">Succesfully Logout</string>
     <string name="internet_connection">Internet Connection</string>
-    <string name="internet_connection_needed">\"If you want to use this application, you need internet connection \"</string>
+    <string name="internet_connection_needed">If you want to use this application, you need internet connection.</string>
     <string name="new_update">New Update</string>
     <string name="must_update">Application has a new version. If you want to use it, you have to update it.</string>
     <string name="wanna_update">Application has a new version. Do you want to update it ?</string>

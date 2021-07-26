@@ -20,6 +20,7 @@ import com.emreozcan.flightapp.models.Flights
 import com.emreozcan.flightapp.models.User
 import com.emreozcan.flightapp.util.Constants.Companion.FIREBASE_COLLECTION
 import com.emreozcan.flightapp.util.Constants.Companion.FIREBASE_COLLECTION_USER
+import com.emreozcan.flightapp.util.DataResult
 import com.emreozcan.flightapp.util.DataStoreRepository
 import com.google.firebase.auth.EmailAuthCredential
 import com.google.firebase.auth.EmailAuthProvider
@@ -43,7 +44,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     val readOnboarding = dataStore.readOnboarding.asLiveData()
 
-    val isLoading: MutableLiveData<Boolean> = MutableLiveData(true)
+    val dataResult: MutableLiveData<DataResult> = MutableLiveData()
 
     /**DataStore*/
     fun saveOnboarding() {
@@ -99,11 +100,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     /**Get Data From Firebase*/
     fun getData() {
-        isLoading.value = true
+
+        dataResult.value = DataResult.Loading()
+
         var tempList = arrayListOf<Airports>()
         database.collection(FIREBASE_COLLECTION).addSnapshotListener { snapshot, exception ->
             if (exception != null) {
                 Log.d("data", exception.localizedMessage!!)
+                dataResult.value = DataResult.Error(exception.localizedMessage)
             } else {
                 if (snapshot != null && !snapshot.isEmpty) {
                     val documents = snapshot.documents
@@ -145,7 +149,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 }
                 if (tempList.isNotEmpty()) {
                     airportsList.value = tempList
-                    isLoading.value = false
+                    dataResult.value = DataResult.Success()
                 }
             }
         }
