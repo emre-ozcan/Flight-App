@@ -23,9 +23,11 @@ class Constants {
         const val FORCE_UPDATE_REQUIRED_DEFAULT = false
         const val APP_VERSION_CODE = BuildConfig.VERSION_CODE
 
-        // Yotube Player
-        const val YOUTUBE_PLAYER_KEY = "AIzaSyBUC7zGDJIy32P--kkonTJqmrQ1eQfpCwU"
-        const val YOUTUBE_VIDEO_KEY = "6esb5_f0aDs"
+       // Firebase CM Push Notification
+        const val BASE_URL = "https://fcm.googleapis.com"
+        const val CONTENT_TYPE = "application/json"
+        const val SERVER_KEY = "AAAADjdF4y4:APA91bEByWolN62BciwO4EhtGcw9YErU3bEIIbUHjhlahlvW-VNyt2bPJoPn2NglQ6BMZ1XVyyb1b_dyVl9jR7JKO3MmmlWND8MVw72gUby7n4DQVaQVWjRnKJzGbBUtOGIF7mxEig5U"
+        const val AIRPORT_TOPIC = "/topics/airports"
 
     }
 }

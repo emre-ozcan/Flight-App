@@ -81,6 +81,10 @@ class ProfileFragment : Fragment() {
             }
         }
 
+        binding.buttonNotificationFragment.setOnClickListener {
+            findNavController().navigate(R.id.action_action_profile_to_notificationFragment)
+        }
+
         return binding.root
     }
     private fun shouldButtonClick() {

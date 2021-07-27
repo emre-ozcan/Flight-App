@@ -10,10 +10,12 @@ import com.emreozcan.flightapp.R
 import com.emreozcan.flightapp.databinding.ActivityLoginBinding
 import com.emreozcan.flightapp.ui.fragments.onboarding.FirstScreen
 import com.emreozcan.flightapp.ui.fragments.onboarding.VideoFragment
+import com.emreozcan.flightapp.util.Constants.Companion.AIRPORT_TOPIC
 import com.emreozcan.flightapp.viewmodel.MainViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 
 class LoginActivity : AppCompatActivity() {
 
@@ -31,6 +33,9 @@ class LoginActivity : AppCompatActivity() {
             this.putString("application","start")
         }
         firebaseAnalytics.logEvent("LoginActivity_OnCreate",bundle)
+
+        FirebaseMessaging.getInstance().subscribeToTopic(AIRPORT_TOPIC)
+
 
     }
 

@@ -14,8 +14,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.emreozcan.flightapp.R
 import com.emreozcan.flightapp.databinding.FragmentVideoBinding
 import com.emreozcan.flightapp.viewmodel.MainViewModel
-import com.google.android.youtube.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener
 
 

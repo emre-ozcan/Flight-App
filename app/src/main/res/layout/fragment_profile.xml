@@ -157,11 +157,9 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="64dp"
                 android:background="@drawable/button_background"
                 android:text="Logout"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/buttonUpdate" />
@@ -180,6 +178,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_password_textInputLayout" />
 
+            <android.widget.Button
+                android:id="@+id/buttonNotificationFragment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="64dp"
+                android:background="@drawable/button_background"
+                android:text="Send Notıfıcatıon"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/buttonLogout"
+                app:layout_constraintStart_toStartOf="@+id/buttonLogout"
+                app:layout_constraintTop_toBottomOf="@+id/buttonLogout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

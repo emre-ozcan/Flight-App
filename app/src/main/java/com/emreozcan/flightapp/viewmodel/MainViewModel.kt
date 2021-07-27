@@ -15,9 +15,11 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.emreozcan.flightapp.R
+import com.emreozcan.flightapp.data.RetrofitObject
 import com.emreozcan.flightapp.models.Airports
 import com.emreozcan.flightapp.models.Flights
 import com.emreozcan.flightapp.models.User
+import com.emreozcan.flightapp.models.notification.PushNotification
 import com.emreozcan.flightapp.util.Constants.Companion.FIREBASE_COLLECTION
 import com.emreozcan.flightapp.util.Constants.Companion.FIREBASE_COLLECTION_USER
 import com.emreozcan.flightapp.util.DataResult
@@ -28,7 +30,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
@@ -311,6 +317,20 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             Toast.makeText(context, "There is any change", Toast.LENGTH_SHORT).show()
         }
 
+    }
+
+
+     fun sendNotification(notification: PushNotification,context: Context) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val response = RetrofitObject.api.postNotification(notification)
+            if (response.isSuccessful){
+                Toast.makeText(context,response.message().toString(),Toast.LENGTH_LONG).show()
+            }else{
+                Toast.makeText(context,response.errorBody().toString(),Toast.LENGTH_LONG).show()
+            }
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
     }
 
     fun hasInternetConnection(): Boolean {

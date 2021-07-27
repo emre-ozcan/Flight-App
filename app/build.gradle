@@ -42,16 +42,12 @@ android {
     }
 }
 
+def nav_version = "2.3.5"
+
+
 dependencies {
 
-    implementation 'com.google.firebase:firebase-auth:21.0.0'
-    implementation 'com.google.firebase:firebase-firestore:23.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.gms:play-services-maps:17.0.1'
-    implementation files('libs\\YouTubeAndroidPlayerApi.jar')
-    def nav_version = "2.3.5"
-
-
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.5.0'
     implementation 'androidx.appcompat:appcompat:1.3.0'
@@ -61,9 +57,19 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    // Maps
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+
+
+    // Firebase
+    implementation 'com.google.firebase:firebase-auth:21.0.0'
+    implementation 'com.google.firebase:firebase-firestore:23.0.0'
+
+
     // Jetpack Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
 
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
@@ -71,31 +77,44 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
 
+
     // DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0-beta02")
 
 
     // Force Update Remote Confing
-
     implementation platform('com.google.firebase:firebase-bom:28.2.0')
     implementation 'com.google.firebase:firebase-config-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
+
     // Shimmer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
 
     // Dexter-Permission
     implementation 'com.karumi:dexter:6.2.3'
 
+
     //Analytics
     implementation 'com.google.firebase:firebase-analytics'
+
 
     //Crashlytics
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
 
-    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
     // Youtube Player Pierfrancesco Soffritti
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+
+
+    // Firebase Messaging for Push Notification
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
 
 
 }
