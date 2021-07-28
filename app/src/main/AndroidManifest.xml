@@ -45,5 +45,7 @@
 
         </service>
 
+        <receiver android:name=".services.NotificationService"/>
+
     </application>
 </manifest>

@@ -13,6 +13,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.emreozcan.flightapp.R
 import com.emreozcan.flightapp.ui.LoginActivity
+import com.emreozcan.flightapp.util.createNotificationChannelForO
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import java.util.*
@@ -34,7 +35,7 @@ class MessagingService : FirebaseMessagingService() {
         val notificationId = Random().nextInt()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            createNotificationChannelForO(notificationManager)
+            createNotificationChannelForO(notificationManager,channelId)
         }
 
         val notification = NotificationCompat.Builder(this,channelId)
@@ -45,19 +46,5 @@ class MessagingService : FirebaseMessagingService() {
             .build()
 
         notificationManager.notify(notificationId,notification)
-
-
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun createNotificationChannelForO(notificationManager: NotificationManager) {
-        val channelName = "Flight App"
-        val channel = NotificationChannel(channelId,channelName,IMPORTANCE_HIGH).apply {
-            enableVibration(true)
-            enableLights(true)
-            description = "Flight Application"
-        }
-
-        notificationManager.createNotificationChannel(channel)
     }
 }

@@ -34,7 +34,6 @@ class NotificationFragment : Fragment() {
 
         textInputDoOnTextChange()
 
-
         binding.buttonNotification.setOnClickListener {
             val title = binding.titleNotificationEditText.text.toString().trim()
             val message = binding.messageNotificationEditText.text.toString().trim()
