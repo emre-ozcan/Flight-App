@@ -7,15 +7,6 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-fun <T : RecyclerView.ViewHolder?> RecyclerView.setupRecyclerView(
-    adapter: RecyclerView.Adapter<T>,
-    layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(
-        this.context
-    )
-) {
-    this.adapter = adapter
-    this.layoutManager = layoutManager
-}
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun createNotificationChannelForO(notificationManager: NotificationManager,channelId: String) {
@@ -28,4 +19,17 @@ fun createNotificationChannelForO(notificationManager: NotificationManager,chann
 
     notificationManager.createNotificationChannel(channel)
 }
+
+
+fun <T : RecyclerView.ViewHolder?> RecyclerView.setupRecyclerView(
+    adapter: RecyclerView.Adapter<T>,
+    layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(
+        this.context
+    )
+) {
+    this.adapter = adapter
+    this.layoutManager = layoutManager
+}
+
+
 
