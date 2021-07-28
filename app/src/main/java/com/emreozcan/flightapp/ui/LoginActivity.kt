@@ -59,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
 
         val intent = Intent(applicationContext,NotificationService::class.java)
         val pendingIntent = PendingIntent.getBroadcast(applicationContext,0,intent,PendingIntent.FLAG_UPDATE_CURRENT)
-        val alarmManager: AlarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
 
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.timeInMillis,AlarmManager.INTERVAL_DAY,pendingIntent)
 

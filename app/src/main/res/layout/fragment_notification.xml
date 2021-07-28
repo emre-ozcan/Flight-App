@@ -91,4 +91,17 @@
         app:layout_constraintStart_toStartOf="@+id/textInputLayout_title"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
+    <Button
+        android:id="@+id/buttonSpecific"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        style="?attr/materialButtonOutlinedStyle"
+        android:text="SPECIFIC NOTIFICATION"
+        app:strokeColor="@color/teal_200"
+        app:cornerRadius="6dp"
+        app:layout_constraintEnd_toEndOf="@+id/buttonNotification"
+        app:layout_constraintStart_toStartOf="@+id/buttonNotification"
+        app:layout_constraintTop_toBottomOf="@+id/buttonNotification" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
