@@ -1,19 +1,10 @@
 package com.emreozcan.flightapp.bindingadapter
 
 import android.widget.TextView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.emreozcan.flightapp.R
-import com.emreozcan.flightapp.adapters.AirportsFlightsRowAdapter
-import com.emreozcan.flightapp.adapters.AirportsRowAdapter
-import com.emreozcan.flightapp.models.Airports
-import com.emreozcan.flightapp.models.Flights
 import com.emreozcan.flightapp.util.TimeDifference
 import com.emreozcan.flightapp.util.difference
-import com.emreozcan.flightapp.util.setupRecyclerView
-import com.emreozcan.flightapp.viewmodel.MainViewModel
 
 
 class FlightBindingAdapter {
@@ -44,7 +35,6 @@ class FlightBindingAdapter {
                     "${difference.hours}h".also { textView.text = it }
                 }
                 else -> {
-                    //TODO resoruceden al
                     textView.text = textView.context.getString(R.string.musteri_vefat_etmistir)
                 }
             }

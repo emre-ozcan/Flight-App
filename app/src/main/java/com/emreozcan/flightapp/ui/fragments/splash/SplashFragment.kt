@@ -15,7 +15,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.emreozcan.flightapp.R
 import com.emreozcan.flightapp.databinding.FragmentSplashBinding
-import com.emreozcan.flightapp.util.Constants
+import com.emreozcan.flightapp.ui.LoginActivity
+import com.emreozcan.flightapp.util.*
 import com.emreozcan.flightapp.util.Constants.Companion.FORCE_UPDATE_REQUIRED
 import com.emreozcan.flightapp.util.Constants.Companion.FORCE_UPDATE_REQUIRED_DEFAULT
 import com.emreozcan.flightapp.util.Constants.Companion.LEAST_VERSION_CODE
@@ -24,12 +25,11 @@ import com.emreozcan.flightapp.util.Constants.Companion.STORE_URL
 import com.emreozcan.flightapp.util.Constants.Companion.STORE_URL_DEFAULT
 import com.emreozcan.flightapp.util.Constants.Companion.SUGGESTED_VERSION_CODE
 import com.emreozcan.flightapp.util.Constants.Companion.SUGGESTED_VERSION_CODE_DEFAULT
-import com.emreozcan.flightapp.util.DataResult
-import com.emreozcan.flightapp.util.ForceUpdateChecker
 import com.emreozcan.flightapp.viewmodel.MainViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
+import java.util.*
 
 
 class SplashFragment : Fragment(), ForceUpdateChecker.OnUpdateNeedListener {
@@ -47,7 +47,6 @@ class SplashFragment : Fragment(), ForceUpdateChecker.OnUpdateNeedListener {
 
     private var updateNeed = false
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -55,7 +54,7 @@ class SplashFragment : Fragment(), ForceUpdateChecker.OnUpdateNeedListener {
         if (hasInternetConnection){
             handleForceUpdate()
         }else{
-            mainViewModel.dataResult.value = DataResult.Error("There is any Internet Connection !")
+            mainViewModel.dataResult.value = DataResult.Error(getString(R.string.any_internet_connection))
         }
     }
 
@@ -65,6 +64,14 @@ class SplashFragment : Fragment(), ForceUpdateChecker.OnUpdateNeedListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSplashBinding.inflate(inflater, container, false)
+
+        mainViewModel.readLanguageCode.observe(viewLifecycleOwner,{ languageCode ->
+            if (Locale.getDefault().language != languageCode && languageCode != "sys"){
+                println("Girdi")
+                LocaleHelper.setLocale(requireContext(),languageCode)
+                activity?.recreate()
+            }
+        })
 
         startAnimations()
 
@@ -78,14 +85,14 @@ class SplashFragment : Fragment(), ForceUpdateChecker.OnUpdateNeedListener {
                 handler.postDelayed({
                     when {
                         mainViewModel.currentUser != null -> {
-                            findNavController().navigate(R.id.action_splashFragment_to_mainActivity)
+                            findNavControllerSafely()?.navigate(R.id.action_splashFragment_to_mainActivity)
                             activity?.finish()
                         }
                         isOnboardingShowed -> {
-                            findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+                            findNavControllerSafely()?.navigate(R.id.action_splashFragment_to_loginFragment)
                         }
                         else -> {
-                            findNavController().navigate(R.id.action_splashFragment_to_onboardingFragment)
+                            findNavControllerSafely()?.navigate(R.id.action_splashFragment_to_onboardingFragment)
                         }
                     }
 

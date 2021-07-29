@@ -1,22 +1,20 @@
 package com.emreozcan.flightapp.ui.fragments.login
 
+import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.emreozcan.flightapp.R
 import com.emreozcan.flightapp.databinding.FragmentLoginBinding
+import com.emreozcan.flightapp.ui.LoginActivity
+import com.emreozcan.flightapp.util.LocaleHelper
 import com.emreozcan.flightapp.viewmodel.MainViewModel
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.analytics.FirebaseAnalytics
 
 
@@ -36,10 +34,8 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext())
-
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext())
 
         binding.buttonLoginSignup.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_signInFragment)

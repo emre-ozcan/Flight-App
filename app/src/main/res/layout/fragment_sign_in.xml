@@ -17,7 +17,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/imageView5"
@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gilroy_bold"
-                android:text="Flight App"
+                android:text="@string/flight_app"
                 android:textColor="#FFFFFF"
                 android:textSize="34sp"
                 app:layout_constraintBottom_toTopOf="@+id/imageView6"
@@ -72,7 +72,7 @@
                     android:id="@+id/name_editText_signup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Name"
+                    android:hint="@string/name_text"
                     android:imeOptions="actionDone"
                     android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -97,7 +97,7 @@
                     android:id="@+id/surname_editText_signup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Surname"
+                    android:hint="@string/surname_Text"
                     android:imeOptions="actionDone"
                     android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -122,7 +122,7 @@
                     android:id="@+id/email_editText_signup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email"
+                    android:hint="@string/email_text"
                     android:imeOptions="actionDone"
                     android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -146,7 +146,7 @@
                     android:id="@+id/password_editText_signup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
+                    android:hint="@string/password_text"
                     android:inputType="textPassword"
                     android:imeOptions="actionDone" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -160,7 +160,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="32dp"
                 android:background="@drawable/button_background"
-                android:text="Sıgn up"
+                android:text="@string/sign_up"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

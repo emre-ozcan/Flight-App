@@ -4,6 +4,10 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -29,6 +33,13 @@ fun <T : RecyclerView.ViewHolder?> RecyclerView.setupRecyclerView(
 ) {
     this.adapter = adapter
     this.layoutManager = layoutManager
+}
+fun Fragment.findNavControllerSafely(): NavController? {
+    return if (isAdded) {
+        findNavController()
+    } else {
+        null
+    }
 }
 
 

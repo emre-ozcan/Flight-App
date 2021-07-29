@@ -33,7 +33,7 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        //TODO databindingle yap
+
         val planeAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.plane_anim)
         binding.imageView17.startAnimation(planeAnim)
 
@@ -83,6 +83,10 @@ class ProfileFragment : Fragment() {
 
         binding.buttonNotificationFragment.setOnClickListener {
             findNavController().navigate(R.id.action_action_profile_to_notificationFragment)
+        }
+
+        binding.buttonSettings.setOnClickListener {
+            findNavController().navigate(R.id.action_action_profile_to_settingsScreenFragment)
         }
 
         return binding.root

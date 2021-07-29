@@ -49,6 +49,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val userLogin: MutableLiveData<User> = MutableLiveData()
 
     val readOnboarding = dataStore.readOnboarding.asLiveData()
+    val readLanguageCode = dataStore.readLanguage.asLiveData()
+
 
     val dataResult: MutableLiveData<DataResult> = MutableLiveData()
 
@@ -56,6 +58,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun saveOnboarding() {
         viewModelScope.launch {
             dataStore.onBoardingShowed()
+        }
+    }
+
+    fun saveLanguageCode(languageCode: String){
+        viewModelScope.launch {
+            viewModelScope.launch {
+                dataStore.setLanguage(languageCode)
+            }
         }
     }
 
@@ -194,14 +204,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun login(email: String, password: String, fragment: Fragment) {
         auth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
 
-            Toast.makeText(fragment.context, "Succesfully Login !", Toast.LENGTH_LONG).show()
+            Toast.makeText(fragment.context, fragment.getString(R.string.succesful_login), Toast.LENGTH_LONG).show()
             fragment.findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
             fragment.activity?.finish()
 
         }.addOnFailureListener { exception ->
             Toast.makeText(
                 fragment.context,
-                "Error ! : ${exception.localizedMessage}",
+                exception.localizedMessage,
                 Toast.LENGTH_LONG
             ).show()
         }
@@ -267,7 +277,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         )
 
         currentUser!!.reauthenticate(credential).addOnFailureListener { exception ->
-            Toast.makeText(context, "Error ! ${exception.localizedMessage}", Toast.LENGTH_SHORT)
+            Toast.makeText(context, exception.localizedMessage, Toast.LENGTH_SHORT)
                 .show()
         }
 
@@ -280,7 +290,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
                 }
             }.addOnFailureListener { exception ->
-                Toast.makeText(context, "Error ! ${exception.localizedMessage}", Toast.LENGTH_SHORT)
+                Toast.makeText(context, exception.localizedMessage, Toast.LENGTH_SHORT)
                     .show()
             }
         }
@@ -294,7 +304,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
                 }
             }.addOnFailureListener { exception ->
-                Toast.makeText(context, "Error ! ${exception.localizedMessage}", Toast.LENGTH_SHORT)
+                Toast.makeText(context, exception.localizedMessage, Toast.LENGTH_SHORT)
                     .show()
             }
         }
@@ -312,9 +322,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 .update("userSurname", surname)
         }
         if (isChanged) {
-            Toast.makeText(context, "Changes Applied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, context.getString(R.string.changes_applied), Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(context, "There is any change", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, context.getString(R.string.any_change), Toast.LENGTH_SHORT).show()
         }
 
     }

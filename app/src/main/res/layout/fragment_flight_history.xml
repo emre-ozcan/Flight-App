@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/gilroy_bold"
-            android:text="Flight History"
+            android:text="@string/flight_history"
             android:textColor="@color/white"
             android:textSize="20sp" />
 

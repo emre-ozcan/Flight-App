@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:imeOptions="actionDone"
             android:inputType="text"
-            android:hint="Email" />
+            android:hint="@string/email_text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -86,7 +86,7 @@
             android:inputType="textPassword"
             android:layout_height="wrap_content"
             android:imeOptions="actionDone"
-            android:hint="Password" />
+            android:hint="@string/password_text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -94,7 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/gilroy_bold"
-        android:text="Flight App"
+        android:text="@string/flight_app"
         android:textColor="#FFFFFF"
         android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView4"
@@ -108,7 +108,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:background="@drawable/button_background"
-        android:text="Logın"
+        android:text="@string/login_button"
         android:clickable="false"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/login_password_textInputLayout"
@@ -134,7 +134,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        android:text="OR"
+        android:text="@string/or_divider"
         app:layout_constraintEnd_toStartOf="@+id/divider2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/divider"
@@ -148,7 +148,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/button_background"
-        android:text="Sıgn Up"
+        android:text="@string/sign_up"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

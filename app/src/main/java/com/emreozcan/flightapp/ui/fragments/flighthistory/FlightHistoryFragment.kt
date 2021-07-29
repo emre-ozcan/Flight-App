@@ -9,7 +9,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.emreozcan.flightapp.adapters.AirportsFlightsRowAdapter
 import com.emreozcan.flightapp.databinding.FragmentFlightHistoryBinding
-import com.emreozcan.flightapp.ui.fragments.airportflights.AirportFlightsFragmentArgs
 import com.emreozcan.flightapp.util.setupRecyclerView
 
 

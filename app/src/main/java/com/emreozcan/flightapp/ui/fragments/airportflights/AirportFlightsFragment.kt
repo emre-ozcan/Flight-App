@@ -6,10 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.emreozcan.flightapp.adapters.AirportsFlightsRowAdapter
 import com.emreozcan.flightapp.databinding.FragmentAirportFlightsBinding
-import com.emreozcan.flightapp.util.setupRecyclerView
 
 class AirportFlightsFragment : Fragment() {
 

@@ -1,25 +1,23 @@
 package com.emreozcan.flightapp.ui
 
 import android.app.AlarmManager
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
+import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.fragment.app.Fragment
-import com.emreozcan.flightapp.R
+import androidx.core.os.ConfigurationCompat
+import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import com.emreozcan.flightapp.databinding.ActivityLoginBinding
 import com.emreozcan.flightapp.services.NotificationService
-import com.emreozcan.flightapp.ui.fragments.onboarding.FirstScreen
-import com.emreozcan.flightapp.ui.fragments.onboarding.VideoFragment
 import com.emreozcan.flightapp.util.Constants.Companion.AIRPORT_TOPIC
+import com.emreozcan.flightapp.util.LocaleHelper
 import com.emreozcan.flightapp.viewmodel.MainViewModel
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
 
@@ -27,6 +25,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var firebaseAnalytics: FirebaseAnalytics
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,14 +38,11 @@ class LoginActivity : AppCompatActivity() {
             this.putString("application","start")
         }
         firebaseAnalytics.logEvent("LoginActivity_OnCreate",bundle)
-
         FirebaseMessaging.getInstance().subscribeToTopic(AIRPORT_TOPIC)
 
         createDailyNotification()
 
-
     }
-
     private fun createDailyNotification() {
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY,10)
@@ -72,7 +68,6 @@ class LoginActivity : AppCompatActivity() {
         }
         firebaseAnalytics.logEvent("LoginActivity_OnDestroy",bundle)
     }
-
 
     override fun onBackPressed() {
         val bundle = Bundle().apply {

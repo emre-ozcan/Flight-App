@@ -6,13 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.emreozcan.flightapp.R
-import com.emreozcan.flightapp.adapters.AirportsRowAdapter
 import com.emreozcan.flightapp.adapters.FlightsRowAdapter
 import com.emreozcan.flightapp.databinding.FragmentFlightsBinding
-import com.emreozcan.flightapp.util.setupRecyclerView
 import com.emreozcan.flightapp.viewmodel.MainViewModel
 
 

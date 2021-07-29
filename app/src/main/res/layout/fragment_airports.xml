@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Something went wrong :("
+            android:text="@string/something_went_wrong"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@+id/imageViewError"
             app:layout_constraintStart_toStartOf="@+id/imageViewError"
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/gilroy_bold"
-                android:text="Airports"
+                android:text="@string/airports"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
         </androidx.appcompat.widget.Toolbar>

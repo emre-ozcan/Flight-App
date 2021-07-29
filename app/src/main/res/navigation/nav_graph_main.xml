@@ -30,6 +30,13 @@
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_action_profile_to_settingsScreenFragment"
+            app:destination="@id/settingsScreenFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/action_airports"
@@ -110,4 +117,9 @@
         android:name="com.emreozcan.flightapp.ui.fragments.notification.NotificationFragment"
         android:label="fragment_notification"
         tools:layout="@layout/fragment_notification" />
+    <fragment
+        android:id="@+id/settingsScreenFragment"
+        android:name="com.emreozcan.flightapp.ui.fragments.settings.SettingsScreenFragment"
+        android:label="fragment_settings_screen"
+        tools:layout="@layout/fragment_settings_screen" />
 </navigation>

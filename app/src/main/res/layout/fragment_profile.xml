@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/gilroy_bold"
-                android:text="Profile"
+                android:text="@string/profile_screen"
                 android:textColor="#FFFFFF"
                 android:textSize="34sp"
                 app:layout_constraintBottom_toTopOf="@+id/imageView17"
@@ -67,7 +67,7 @@
                     android:id="@+id/profile_name_editText_signup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Name" />
+                    android:hint="@string/name_text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -90,7 +90,7 @@
                     android:id="@+id/profile_surname_editText_signup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Surname" />
+                    android:hint="@string/surname_Text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -112,7 +112,7 @@
                     android:id="@+id/profile_email_editText_signup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email" />
+                    android:hint="@string/email_text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -135,7 +135,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:hint="Password" />
+                    android:hint="@string/password_text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <android.widget.Button
@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/button_background"
-                android:text="Update"
+                android:text="@string/update_text"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="@+id/profile_password_textInputLayout"
                 app:layout_constraintStart_toStartOf="@+id/profile_password_textInputLayout"
@@ -158,7 +158,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/button_background"
-                android:text="Logout"
+                android:text="@string/logout"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -172,7 +172,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/button_background"
-                android:text="Flıght Hıstory"
+                android:text="@string/flight_history"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -185,12 +185,22 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="64dp"
                 android:background="@drawable/button_background"
-                android:text="Send Notıfıcatıon"
+                android:text="@string/send_notificaiton_button"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/buttonLogout"
                 app:layout_constraintStart_toStartOf="@+id/buttonLogout"
                 app:layout_constraintTop_toBottomOf="@+id/buttonLogout" />
+
+            <ImageView
+                android:id="@+id/buttonSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:src="@drawable/ic_settings"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

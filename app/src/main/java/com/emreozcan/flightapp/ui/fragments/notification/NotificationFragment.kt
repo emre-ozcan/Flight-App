@@ -3,8 +3,6 @@ package com.emreozcan.flightapp.ui.fragments.notification
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.app.PendingIntent.FLAG_ONE_SHOT
-import android.app.PendingIntent.FLAG_UPDATE_CURRENT
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,14 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
+import com.emreozcan.flightapp.R
 import com.emreozcan.flightapp.databinding.FragmentNotificationBinding
 import com.emreozcan.flightapp.models.notification.NotificationData
 import com.emreozcan.flightapp.models.notification.PushNotification
 import com.emreozcan.flightapp.services.NotificationService
-import com.emreozcan.flightapp.ui.LoginActivity
 import com.emreozcan.flightapp.util.Constants.Companion.AIRPORT_TOPIC
 import com.emreozcan.flightapp.util.SplittedDate
 import com.emreozcan.flightapp.util.dateSplitter
@@ -70,7 +67,7 @@ class NotificationFragment : Fragment() {
             val constraintsBuilder = CalendarConstraints.Builder().setValidator(DateValidatorPointForward.now())
 
             val datePicker = MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Please Select Date")
+                .setTitleText(getString(R.string.select_date))
                 .setCalendarConstraints(constraintsBuilder.build())
                 .build()
 
@@ -88,7 +85,7 @@ class NotificationFragment : Fragment() {
     private fun createTimePicker(splittedDate: SplittedDate) {
         val picker = MaterialTimePicker.Builder()
             .setTimeFormat(TimeFormat.CLOCK_24H)
-            .setTitleText("Please Select Time")
+            .setTitleText(getString(R.string.select_time))
             .build()
 
         picker.show(requireActivity().supportFragmentManager,"timePicker")
@@ -103,7 +100,7 @@ class NotificationFragment : Fragment() {
             val alarmManager = requireActivity().getSystemService(AppCompatActivity.ALARM_SERVICE) as AlarmManager
 
             alarmManager.set(AlarmManager.RTC_WAKEUP,calendar.timeInMillis,pendingIntent)
-            Toast.makeText(this.context,"Succesfully Created",Toast.LENGTH_LONG).show()
+            Toast.makeText(this.context,getString(R.string.successfully_created),Toast.LENGTH_LONG).show()
 
         }
     }
@@ -129,7 +126,7 @@ class NotificationFragment : Fragment() {
         binding.messageNotificationEditText.doOnTextChanged { text, _, _, _ ->
             messageLength = text!!.length
             if (messageLength == 0){
-                binding.textInputLayoutMessage.error = "Empty !"
+                binding.textInputLayoutMessage.error = getString(R.string.empty_blank)
                 binding.buttonNotification.isClickable = false
             }else{
                 binding.textInputLayoutMessage.isErrorEnabled = false
@@ -139,7 +136,7 @@ class NotificationFragment : Fragment() {
         binding.titleNotificationEditText.doOnTextChanged { text, _, _, _ ->
             titleLength = text!!.length
             if (titleLength == 0){
-                binding.textInputLayoutTitle.error = "Empty !"
+                binding.textInputLayoutTitle.error = getString(R.string.empty_blank)
                 binding.buttonNotification.isClickable = false
             }else{
                 binding.textInputLayoutTitle.isErrorEnabled = false

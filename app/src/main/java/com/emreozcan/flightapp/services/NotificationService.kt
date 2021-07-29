@@ -31,8 +31,8 @@ class NotificationHelper(val context: Context?) {
 
         val notification = NotificationCompat.Builder(context!!, NOTIFICATION_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_airplane)
-            .setContentTitle("Daily Notification")
-            .setContentText("Hey! Check Application")
+            .setContentTitle(context.getString(R.string.daily_notification))
+            .setContentText(context.getString(R.string.check_application))
             .setContentIntent(resultPendingIntent)
 
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

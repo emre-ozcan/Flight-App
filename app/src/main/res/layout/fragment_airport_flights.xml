@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/gilroy_bold"
-                android:text="Flights"
+                android:text="@string/flights"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 

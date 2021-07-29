@@ -11,6 +11,7 @@ class Constants {
         // Datastore
         const val DATASTORE_PREFERENCE_NAME = "flight_preferences"
         const val ONBOARDING_PREFERENCE_KEY = "onboarding"
+        const val LANGUAGE_PREFERENCE_KEY = "language_key"
 
         // Remote Config Force Update
         const val STORE_URL = "store_url"
