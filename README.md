@@ -26,6 +26,7 @@
 - Crashlytics
 - Firebase Debug
 - Push Notification
+- Multi Language Support
 
 ### Push Notification
 <img src="https://user-images.githubusercontent.com/49096704/127179216-62bd052f-c23a-4fbf-9d00-4246d047c0ef.gif" height="500">
