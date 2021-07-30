@@ -157,12 +157,15 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/button_background"
+                android:layout_marginBottom="64dp"
+                android:background="@drawable/button_red_background"
                 android:text="@string/logout"
                 android:textColor="@color/white"
+                app:cornerRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buttonUpdate" />
+                app:layout_constraintTop_toBottomOf="@+id/buttonReport" />
 
             <android.widget.Button
                 android:id="@+id/buttonFlightHistory"
@@ -183,14 +186,25 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="64dp"
                 android:background="@drawable/button_background"
                 android:text="@string/send_notificaiton_button"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/buttonLogout"
-                app:layout_constraintStart_toStartOf="@+id/buttonLogout"
-                app:layout_constraintTop_toBottomOf="@+id/buttonLogout" />
+                app:layout_constraintEnd_toEndOf="@+id/buttonUpdate"
+                app:layout_constraintStart_toStartOf="@+id/buttonUpdate"
+                app:layout_constraintTop_toBottomOf="@+id/buttonUpdate" />
+
+            <android.widget.Button
+                android:id="@+id/buttonReport"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/button_background"
+                android:text="@string/report"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="@+id/buttonNotificationFragment"
+                app:layout_constraintStart_toStartOf="@+id/buttonNotificationFragment"
+                app:layout_constraintTop_toBottomOf="@+id/buttonNotificationFragment" />
+
 
             <ImageView
                 android:id="@+id/buttonSettings"

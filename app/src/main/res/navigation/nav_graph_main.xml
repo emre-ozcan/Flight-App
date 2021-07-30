@@ -37,6 +37,9 @@
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_action_profile_to_reportFragment"
+            app:destination="@id/reportFragment" />
     </fragment>
     <fragment
         android:id="@+id/action_airports"
@@ -122,4 +125,13 @@
         android:name="com.emreozcan.flightapp.ui.fragments.settings.SettingsScreenFragment"
         android:label="fragment_settings_screen"
         tools:layout="@layout/fragment_settings_screen" />
+    <fragment
+        android:id="@+id/reportFragment"
+        android:name="com.emreozcan.flightapp.ui.fragments.report.ReportFragment"
+        android:label="fragment_report"
+        tools:layout="@layout/fragment_report" >
+        <argument
+            android:name="currentUser"
+            app:argType="com.emreozcan.flightapp.models.User" />
+    </fragment>
 </navigation>

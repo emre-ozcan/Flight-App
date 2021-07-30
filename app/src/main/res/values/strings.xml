@@ -64,4 +64,7 @@
     <string name="alert_cancel">Cancel</string>
     <string name="language_turkish">Turkish</string>
     <string name="language_English">English</string>
+    <string name="report">Report</string>
+    <string name="please_write_your_complaint_to_here">Please write your complaint to here</string>
+    <string name="add_an_image">Add An Image</string>
 </resources>

@@ -89,6 +89,11 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(R.id.action_action_profile_to_settingsScreenFragment)
         }
 
+        binding.buttonReport.setOnClickListener {
+            val action = ProfileFragmentDirections.actionActionProfileToReportFragment(userCurrent)
+            Navigation.findNavController(it).navigate(action)
+        }
+
         return binding.root
     }
     private fun shouldButtonClick() {
