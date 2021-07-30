@@ -7,6 +7,7 @@ class Constants {
         // Firebase
         const val FIREBASE_COLLECTION = "airports"
         const val FIREBASE_COLLECTION_USER = "users"
+        const val FIREBASE_COLLECTION_REPORT = "reports"
 
         // Datastore
         const val DATASTORE_PREFERENCE_NAME = "flight_preferences"
@@ -30,8 +31,11 @@ class Constants {
         const val SERVER_KEY = "AAAADjdF4y4:APA91bEByWolN62BciwO4EhtGcw9YErU3bEIIbUHjhlahlvW-VNyt2bPJoPn2NglQ6BMZ1XVyyb1b_dyVl9jR7JKO3MmmlWND8MVw72gUby7n4DQVaQVWjRnKJzGbBUtOGIF7mxEig5U"
         const val AIRPORT_TOPIC = "/topics/airports"
 
-        //Notification
+        // Notification
         const val NOTIFICATION_CHANNEL_ID = "424242"
+
+        // Storage
+        const val STORAGE_REPORT_REFERENCE = "report_images"
 
     }
 }
