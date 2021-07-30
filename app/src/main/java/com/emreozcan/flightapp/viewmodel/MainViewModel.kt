@@ -148,7 +148,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         database.collection(FIREBASE_COLLECTION_REPORT).add(Report(user.userName,user.userSurname
                             ,user.userEmail,imageUrl,complaint)).addOnSuccessListener {
 
-                            Toast.makeText(fragment.context,"Succesfully Sent",Toast.LENGTH_LONG).show()
+                            Toast.makeText(fragment.context,fragment.context?.getString(R.string.succesfully_sent),Toast.LENGTH_LONG).show()
                             fragment.findNavController().navigate(R.id.action_reportFragment_to_action_profile)
 
                         }.addOnFailureListener { exception ->
@@ -161,7 +161,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             database.collection(FIREBASE_COLLECTION_REPORT).add(Report(user.userName,user.userSurname
                 ,user.userEmail,imageUrl,complaint)).addOnSuccessListener {
 
-                Toast.makeText(fragment.context,"Succesfully Sent",Toast.LENGTH_LONG).show()
+                Toast.makeText(fragment.context,fragment.context?.getString(R.string.succesfully_sent),Toast.LENGTH_LONG).show()
                 fragment.findNavController().navigate(R.id.action_reportFragment_to_action_profile)
 
             }.addOnFailureListener { exception ->
@@ -180,7 +180,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     ) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Toast.makeText(fragment.context, "Succesfully Signup !", Toast.LENGTH_LONG).show()
+                Toast.makeText(fragment.context, fragment.context?.getString(R.string.succesfully_signup), Toast.LENGTH_LONG).show()
                 val f1 =
                     Flights("Turkish Airlines", "09:45;11:45", "20", "Hour", "TK1919", "SAW,SZF")
                 val f2 = Flights("Pegasus", "08:50;12:45", "10", "Hour", "TK9876", "ABC,DEF")

@@ -64,4 +64,10 @@
     <string name="alert_cancel">İptal</string>
     <string name="language_turkish">Türkçe</string>
     <string name="language_English">İngilizce</string>
+    <string name="report">Şikayet Gönder</string>
+    <string name="please_write_your_complaint_to_here">Lütfen şikayetinizi buraya yazınız</string>
+    <string name="add_an_image">Resim Ekle</string>
+    <string name="empty_edittext">Boş olamaz</string>
+    <string name="succesfully_signup">Başarıyla Kayıt Olundu !</string>
+    <string name="succesfully_sent">Başarıyla Gönderildi</string>
 </resources>

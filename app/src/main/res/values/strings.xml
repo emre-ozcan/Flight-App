@@ -67,4 +67,7 @@
     <string name="report">Report</string>
     <string name="please_write_your_complaint_to_here">Please write your complaint to here</string>
     <string name="add_an_image">Add An Image</string>
+    <string name="empty_edittext">It could not be empty</string>
+    <string name="succesfully_signup">Succesfully Signup !</string>
+    <string name="succesfully_sent">Succesfully Sent</string>
 </resources>

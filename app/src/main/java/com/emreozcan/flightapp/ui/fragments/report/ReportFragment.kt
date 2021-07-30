@@ -18,6 +18,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.emreozcan.flightapp.R
@@ -63,6 +64,14 @@ class ReportFragment : Fragment(), PermissionListener {
                 .withListener(this).check()
         }
 
+        binding.editTextReport.doOnTextChanged { text, _, _, _ ->
+            if (text?.length == 0){
+                binding.textInputLayoutReport.error = getString(R.string.empty_edittext)
+            }else{
+                binding.textInputLayoutReport.isErrorEnabled = false
+            }
+        }
+
         binding.buttonSendReport.setOnClickListener {
             val complaint = binding.editTextReport.text.toString().trim()
             if (complaint.isNotEmpty()) {
@@ -71,6 +80,8 @@ class ReportFragment : Fragment(), PermissionListener {
                 }else{
                     mainViewModel.sendReport(null, args.currentUser, complaint, this)
                 }
+            }else{
+                binding.textInputLayoutReport.error = getString(R.string.empty_edittext)
             }
         }
 
