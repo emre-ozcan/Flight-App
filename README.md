@@ -27,6 +27,7 @@
 - Firebase Debug
 - Push Notification
 - Multi Language Support
+- Report Screen
 
 ### Push Notification
 <img src="https://user-images.githubusercontent.com/49096704/127179216-62bd052f-c23a-4fbf-9d00-4246d047c0ef.gif" height="500">
@@ -41,14 +42,19 @@ Force Update sayesinde uygulamanın versiyonu Firebase üzerinden yönetilir. G�
 ![image](https://user-images.githubusercontent.com/49096704/124750032-a504a700-df2d-11eb-912b-dba936847084.png)
 
 ### Crashlytics
-![image](https://user-images.githubusercontent.com/49096704/125256965-9ccdb280-e305-11eb-9a23-25b5a20a660b.png)
+![image](https://user-images.githubusercontent.com/49096704/127629545-7f2e2740-f3e8-4b61-a64e-4117fdbdcf18.png)
 
 ### Debug
 
 ![image](https://user-images.githubusercontent.com/49096704/125291505-28593a80-e32a-11eb-9bca-22eaa618ee23.png)
 
-### Shimmer 
+### Shimmer
 <img src="https://user-images.githubusercontent.com/49096704/125114257-679d4680-e0f2-11eb-9a39-0dd6c6f206ba.gif" height="500">
+
+## Report Screen
+Bu özellik sayesinde kullanıcı galerisinden fotoğraf seçerek şikayetini iletebilir. İletilen şikayet veritabanına yazılır
+<img src="https://user-images.githubusercontent.com/49096704/127629324-1168c889-af93-416f-90cc-281ecbe45cd7.jpeg" height="500">
+
 
 
 
