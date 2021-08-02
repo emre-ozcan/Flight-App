@@ -13,6 +13,7 @@ import com.budiyev.android.codescanner.DecodeCallback
 import com.emreozcan.flightapp.R
 import com.emreozcan.flightapp.databinding.FragmentQRScannerBinding
 import com.emreozcan.flightapp.models.QRCodeAirport
+import com.emreozcan.flightapp.util.createPermissionDeniedAlertDialog
 import com.emreozcan.flightapp.viewmodel.MainViewModel
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
@@ -95,10 +96,10 @@ class QRScannerFragment : Fragment(),PermissionListener {
     }
 
     override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
-        TODO("Not yet implemented")
+        createPermissionDeniedAlertDialog(requireContext())
     }
 
     override fun onPermissionRationaleShouldBeShown(p0: PermissionRequest?, p1: PermissionToken?) {
-        TODO("Not yet implemented")
+        createPermissionDeniedAlertDialog(requireContext())
     }
 }
