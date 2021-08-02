@@ -16,6 +16,7 @@ import com.emreozcan.flightapp.databinding.RowAirportDesignBinding
 import com.emreozcan.flightapp.models.Airports
 import com.emreozcan.flightapp.ui.fragments.airports.AirportsFragmentDirections
 import com.emreozcan.flightapp.util.RecyclerDiffUtil
+import com.emreozcan.flightapp.util.createPermissionDeniedAlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
@@ -105,18 +106,10 @@ class AirportsRowAdapter : RecyclerView.Adapter<AirportsRowAdapter.MyViewHolder>
     }
 
     override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
-
-        MaterialAlertDialogBuilder(context).setTitle(context.getString(R.string.alert_call_title))
-            .setMessage(context.getString(R.string.alert_call_permission_message))
-            .setNegativeButton(context.getString(R.string.alert_decline)){ _, _ ->
-
-            }.setPositiveButton(context.getString(R.string.alert_okay)){ _, _ ->
-                context.startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + BuildConfig.APPLICATION_ID)))
-
-            }.show()
+        createPermissionDeniedAlertDialog(context)
     }
 
     override fun onPermissionRationaleShouldBeShown(p0: PermissionRequest?, p1: PermissionToken?) {
-
+        createPermissionDeniedAlertDialog(context)
     }
 }

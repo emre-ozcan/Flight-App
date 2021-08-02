@@ -37,5 +37,8 @@ class Constants {
         // Storage
         const val STORAGE_REPORT_REFERENCE = "report_images"
 
+        // PhotoEditorActivity
+        const val PHOTO_EDITOR_REQUEST_CODE = 4206
+
     }
 }

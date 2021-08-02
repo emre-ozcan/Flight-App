@@ -5,34 +5,36 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
-import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.Settings
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.emreozcan.flightapp.BuildConfig
 import com.emreozcan.flightapp.R
 import com.emreozcan.flightapp.databinding.FragmentReportBinding
-import com.emreozcan.flightapp.ui.fragments.flighthistory.FlightHistoryFragmentArgs
+import com.emreozcan.flightapp.util.createEditorIntent
+import com.emreozcan.flightapp.util.createPermissionDeniedAlertDialog
 import com.emreozcan.flightapp.viewmodel.MainViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
-import ja.burhanrashid52.photoeditor.PhotoEditor
-import ja.burhanrashid52.photoeditor.PhotoFilter
+import iamutkarshtiwari.github.io.ananas.editimage.EditImageActivity
+import iamutkarshtiwari.github.io.ananas.editimage.ImageEditorIntentBuilder
+import java.io.File
 
 
 class ReportFragment : Fragment(), PermissionListener {
@@ -42,6 +44,8 @@ class ReportFragment : Fragment(), PermissionListener {
 
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var permissionLauncher: ActivityResultLauncher<String>
+    private lateinit var editResultLauncher: ActivityResultLauncher<Intent>
+
 
     private var selectedBitmap: Bitmap? = null
 
@@ -65,9 +69,9 @@ class ReportFragment : Fragment(), PermissionListener {
         }
 
         binding.editTextReport.doOnTextChanged { text, _, _, _ ->
-            if (text?.length == 0){
+            if (text?.length == 0) {
                 binding.textInputLayoutReport.error = getString(R.string.empty_edittext)
-            }else{
+            } else {
                 binding.textInputLayoutReport.isErrorEnabled = false
             }
         }
@@ -77,10 +81,10 @@ class ReportFragment : Fragment(), PermissionListener {
             if (complaint.isNotEmpty()) {
                 if (imageUri != null) {
                     mainViewModel.sendReport(imageUri!!, args.currentUser, complaint, this)
-                }else{
+                } else {
                     mainViewModel.sendReport(null, args.currentUser, complaint, this)
                 }
-            }else{
+            } else {
                 binding.textInputLayoutReport.error = getString(R.string.empty_edittext)
             }
         }
@@ -90,34 +94,49 @@ class ReportFragment : Fragment(), PermissionListener {
     }
 
     private fun registerLauncher() {
+
+        editResultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == RESULT_OK) {
+                    val intentFromResult = result.data
+                    val isImageEdit = intentFromResult?.getBooleanExtra(EditImageActivity.IS_IMAGE_EDITED,false)!!
+
+                    if (isImageEdit) {
+                        val imagePath = intentFromResult.getStringExtra(ImageEditorIntentBuilder.OUTPUT_PATH)
+                        imageUri = Uri.fromFile(File(imagePath!!))
+                        handleImage()
+
+                    }
+                    else{
+                        handleImage()
+                    }
+                }
+
+            }
+
         activityResultLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == RESULT_OK) {
                     val intentFromResult = result.data
                     if (intentFromResult != null) {
+
                         imageUri = intentFromResult.data
-                        if (imageUri != null) {
-                            try {
-                                if (Build.VERSION.SDK_INT >= 28) {
-                                    val source = ImageDecoder.createSource(
-                                        requireActivity().contentResolver,
-                                        imageUri!!
-                                    )
-                                    selectedBitmap = ImageDecoder.decodeBitmap(source)
 
-                                } else {
-                                    selectedBitmap = MediaStore.Images.Media.getBitmap(
-                                        requireActivity().contentResolver, imageUri
-                                    )
-                                }
-                                binding.imageViewReport.setImageBitmap(selectedBitmap)
+                        try {
+                            val intent = ImageEditorIntentBuilder.createEditorIntent(requireActivity(),imageUri)
+                            EditImageActivity.start(
+                                editResultLauncher,
+                                intent,
+                                requireActivity()
+                            )
 
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
                         }
+
                     }
                 }
+
             }
 
         permissionLauncher =
@@ -127,7 +146,7 @@ class ReportFragment : Fragment(), PermissionListener {
                         Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                     activityResultLauncher.launch(intentToGallery)
                 } else {
-                    //TODO Alert Dialog Ekle
+                    createPermissionDeniedAlertDialog(requireContext())
                 }
             }
 
@@ -141,11 +160,43 @@ class ReportFragment : Fragment(), PermissionListener {
     }
 
     override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
-        //TODO Alert Dialog Ekle
+        createPermissionDeniedAlertDialog(requireContext())
     }
 
     override fun onPermissionRationaleShouldBeShown(p0: PermissionRequest?, p1: PermissionToken?) {
         permissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
     }
+
+
+
+    private fun handleImage(){
+        if (imageUri != null) {
+            try {
+                selectedBitmap = if (Build.VERSION.SDK_INT >= 28) {
+                    val source = ImageDecoder.createSource(
+                        requireActivity().contentResolver,
+                        imageUri!!
+                    )
+                    ImageDecoder.decodeBitmap(source)
+
+                } else {
+                    MediaStore.Images.Media.getBitmap(
+                        requireActivity().contentResolver, imageUri
+                    )
+                }
+                binding.imageViewReport.setImageBitmap(selectedBitmap)
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 
 }

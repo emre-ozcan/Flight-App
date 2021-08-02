@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Uçuş Uygulaması</string>
-    <string name="alert_call_permission_message">Eğer bu özelliği kullanmak istiyorsan, izni kabul etmelisin. Lütfen izni kabul edi</string>
+    <string name="alert_call_permission_message">Eğer bu özelliği kullanmak istiyorsan, izni kabul etmelisin. Lütfen izni kabul edin</string>
     <string name="alert_decline">Reddet</string>
     <string name="alert_okay">Tamam</string>
     <string name="musteri_vefat_etmistir">MUSTERI VEFAT ETMISTIR</string>
@@ -70,4 +70,43 @@
     <string name="empty_edittext">Boş olamaz</string>
     <string name="succesfully_signup">Başarıyla Kayıt Olundu !</string>
     <string name="succesfully_sent">Başarıyla Gönderildi</string>
+    <string name="iamutkarshtiwari_github_io_ananas_no_images">Fotoğraf Yok</string>
+    <string name="iamutkarshtiwari_github_io_ananas_images">%d fotoğraf</string>
+    <string name="iamutkarshtiwari_github_io_ananas_done">Tamam</string>
+    <string name="iamutkarshtiwari_github_io_ananas_apply">Uygula</string>
+    <string name="iamutkarshtiwari_github_io_ananas_stickers">Stickerlar</string>
+    <string name="iamutkarshtiwari_github_io_ananas_filter">Filtreler</string>
+    <string name="iamutkarshtiwari_github_io_ananas_crop">Kes</string>
+    <string name="iamutkarshtiwari_github_io_ananas_rotate">Döndür</string>
+    <string name="iamutkarshtiwari_github_io_ananas_text">Yazı Ekle</string>
+    <string name="iamutkarshtiwari_github_io_ananas_brush">Fırça</string>
+    <string name="iamutkarshtiwari_github_io_ananas_eraser">Silgi</string>
+    <string name="iamutkarshtiwari_github_io_ananas_edit">Düzenle</string>
+    <string name="iamutkarshtiwari_github_io_ananas_brightness">Parlaklık</string>
+    <string name="iamutkarshtiwari_github_io_ananas_saturation">Doygunluk</string>
+    <string name="iamutkarshtiwari_github_io_ananas_opacity">Opaklık</string>
+    <string name="materialcolorpicker__errHex">Hexadecimal kodu yanlış formatta</string>
+    <string name="materialcolorpicker__btnSelectColor">Seç</string>
+    <string name="iamutkarshtiwari_github_io_ananas_saving_image">Kaydediliyor...</string>
+    <string name="iamutkarshtiwari_github_io_ananas_input_hint">Buraya Gir...</string>
+    <string name="iamutkarshtiwari_github_io_ananas_not_selected">Seçilmedi</string>
+    <string name="iamutkarshtiwari_github_io_ananas_auto_newline">Yeni Satır</string>
+    <string name="iamutkarshtiwari_github_io_ananas_save_error">Kaydetme Hatası</string>
+    <string name="iamutkarshtiwari_github_io_ananas_load_error">Yükleme Hatası</string>
+    <string name="iamutkarshtiwari_github_io_ananas_loading">Yükleniyor...</string>
+    <string name="iamutkarshtiwari_github_io_ananas_pick_a_color">Renk seç</string>
+    <string name="iamutkarshtiwari_github_io_ananas_free_size">Normal</string>
+    <string name="iamutkarshtiwari_github_io_ananas_fit_image">Orjinal</string>
+    <string name="iamutkarshtiwari_github_io_ananas_square">Kare</string>
+    <string name="iamutkarshtiwari_github_io_ananas_more">Artı</string>
+    <string name="iamutkarshtiwari_github_io_ananas_exit_without_save">Kaydedilmeden çıkılacak</string>
+    <string name="iamutkarshtiwari_github_io_ananas_confirm">Kabul Et</string>
+    <string name="iamutkarshtiwari_github_io_ananas_cancel">İptal</string>
+    <string name="iamutkarshtiwari_github_io_ananas_beauty">Güzellik</string>
+    <string name="iamutkarshtiwari_github_io_ananas_smooth">Pürüzsüzlük</string>
+    <string name="iamutkarshtiwari_github_io_ananas_white_skin">Ten</string>
+    <string name="iamutkarshtiwari_github_io_ananas_library_name">Fotoğraf Düzenleme</string>
+    <string name="iamutkarshtiwari_github_io_ananas_size">Boyut</string>
+
+
 </resources>

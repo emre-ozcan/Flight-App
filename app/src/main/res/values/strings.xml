@@ -70,4 +70,110 @@
     <string name="empty_edittext">It could not be empty</string>
     <string name="succesfully_signup">Succesfully Signup !</string>
     <string name="succesfully_sent">Succesfully Sent</string>
+
+    <string name="iamutkarshtiwari_github_io_ananas_no_images">There is no Image</string>
+    <string name="iamutkarshtiwari_github_io_ananas_images">%d images</string>
+    <string name="iamutkarshtiwari_github_io_ananas_done">Done</string>
+    <string name="iamutkarshtiwari_github_io_ananas_apply">Apply</string>
+
+    <string name="iamutkarshtiwari_github_io_ananas_stickers">Stickers</string>
+    <string name="iamutkarshtiwari_github_io_ananas_filter">Filters</string>
+    <string name="iamutkarshtiwari_github_io_ananas_crop">Crop</string>
+    <string name="iamutkarshtiwari_github_io_ananas_rotate">Rotate</string>
+    <string name="iamutkarshtiwari_github_io_ananas_text">Add Text</string>
+    <string name="iamutkarshtiwari_github_io_ananas_brush">Brush</string>
+    <string name="iamutkarshtiwari_github_io_ananas_eraser">Eraser</string>
+    <string name="iamutkarshtiwari_github_io_ananas_edit">Edit</string>
+    <string name="iamutkarshtiwari_github_io_ananas_brightness">Brightness</string>
+    <string name="iamutkarshtiwari_github_io_ananas_saturation">Saturation</string>
+    <string name="iamutkarshtiwari_github_io_ananas_size">Size</string>
+    <string name="iamutkarshtiwari_github_io_ananas_opacity">Opacity</string>
+
+    <string name="materialcolorpicker__errHex">Format code of hexadecimal is incorrect</string>
+    <string name="materialcolorpicker__btnSelectColor">Select</string>
+    <string name="iamutkarshtiwari_github_io_ananas_saving_image">Saving…</string>
+    <string name="iamutkarshtiwari_github_io_ananas_input_hint">Enter here…</string>
+
+    <string name="iamutkarshtiwari_github_io_ananas_not_selected">Not Selected</string>
+    <string name="iamutkarshtiwari_github_io_ananas_auto_newline">New Line</string>
+    <string name="iamutkarshtiwari_github_io_ananas_save_error">Saving Error!</string>
+    <string name="iamutkarshtiwari_github_io_ananas_load_error">Loading Error l\'image!</string>
+    <string name="iamutkarshtiwari_github_io_ananas_loading">Loading…</string>
+    <string name="iamutkarshtiwari_github_io_ananas_pick_a_color">Pick a color</string>
+
+    <string name="iamutkarshtiwari_github_io_ananas_free_size">FREE SIZE</string>
+    <string name="iamutkarshtiwari_github_io_ananas_fit_image">ORIGINAL</string>
+    <string name="iamutkarshtiwari_github_io_ananas_square">SQUARE</string>
+    <string name="iamutkarshtiwari_github_io_ananas_ratio3_4" translatable="false">3:4</string>
+    <string name="iamutkarshtiwari_github_io_ananas_ratio4_3" translatable="false">4:3</string>
+    <string name="iamutkarshtiwari_github_io_ananas_ratio9_16" translatable="false">9:16</string>
+    <string name="iamutkarshtiwari_github_io_ananas_ratio16_9" translatable="false">16:9</string>
+
+    <string-array name="iamutkarshtiwari_github_io_ananas_filters">
+        <item>Original</item>
+        <item>Gentle</item>
+        <item>Black</item>
+        <item>Classic</item>
+        <item>Wonderful</item>
+        <item>Retro</item>
+        <item>Grace</item>
+        <item>Film</item>
+        <item>Memory</item>
+        <item>White</item>
+        <item>Fleeting</item>
+        <item>Sparkle</item>
+    </string-array>
+
+    <string-array translatable="false" name="iamutkarshtiwari_github_io_ananas_filter_drawable_list">
+        <item>filter_1</item>
+        <item>filter_2</item>
+        <item>filter_3</item>
+        <item>filter_4</item>
+        <item>filter_5</item>
+        <item>filter_6</item>
+        <item>filter_7</item>
+        <item>filter_8</item>
+        <item>filter_9</item>
+        <item>filter_10</item>
+        <item>filter_11</item>
+        <item>filter_12</item>
+    </string-array>
+
+    <string-array translatable="false" name="iamutkarshtiwari_github_io_ananas_types">
+        <item>type1</item>
+        <item>type2</item>
+        <item>type3</item>
+        <item>type4</item>
+        <item>type5</item>
+        <item>type6</item>
+    </string-array>
+
+    <string-array name="iamutkarshtiwari_github_io_ananas_type_names">
+        <item>Type 1</item>
+        <item>Type 2</item>
+        <item>Type 3</item>
+        <item>Type 4</item>
+        <item>Type 5</item>
+        <item>Type 6</item>
+    </string-array>
+
+    <integer-array translatable="false" name="iamutkarshtiwari_github_io_ananas_type_count">
+        <item>5</item>
+        <item>5</item>
+        <item>5</item>
+        <item>5</item>
+        <item>3</item>
+        <item>5</item>
+    </integer-array>
+
+    <string name="iamutkarshtiwari_github_io_ananas_more">Plus</string>
+    <string name="iamutkarshtiwari_github_io_ananas_exit_without_save">You will exit without save</string>
+    <string name="iamutkarshtiwari_github_io_ananas_confirm">Confirm</string>
+    <string name="iamutkarshtiwari_github_io_ananas_cancel">Cancel</string>
+
+    <string name="iamutkarshtiwari_github_io_ananas_beauty">Beauty</string>
+    <string name="iamutkarshtiwari_github_io_ananas_smooth">Smooth</string>
+    <string name="iamutkarshtiwari_github_io_ananas_white_skin">Skin</string>
+    <string name="iamutkarshtiwari_github_io_ananas_library_name">Image Edit</string>
+
 </resources>
