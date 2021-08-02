@@ -14,14 +14,13 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.emreozcan.flightapp.R
 import com.emreozcan.flightapp.data.RetrofitObject
-import com.emreozcan.flightapp.models.Airports
-import com.emreozcan.flightapp.models.Flights
-import com.emreozcan.flightapp.models.Report
-import com.emreozcan.flightapp.models.User
+import com.emreozcan.flightapp.models.*
 import com.emreozcan.flightapp.models.notification.PushNotification
+import com.emreozcan.flightapp.ui.fragments.qrscanner.QRScannerFragmentDirections
 import com.emreozcan.flightapp.util.Constants.Companion.FIREBASE_COLLECTION
 import com.emreozcan.flightapp.util.Constants.Companion.FIREBASE_COLLECTION_REPORT
 import com.emreozcan.flightapp.util.Constants.Companion.FIREBASE_COLLECTION_USER
@@ -62,6 +61,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     val dataResult: MutableLiveData<DataResult> = MutableLiveData()
 
+    val airportCodesList : MutableLiveData<List<QRCodeAirport>> = MutableLiveData()
+
+
     /**DataStore*/
     fun saveOnboarding() {
         viewModelScope.launch {
@@ -69,7 +71,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun saveLanguageCode(languageCode: String){
+    fun saveLanguageCode(languageCode: String) {
         viewModelScope.launch {
             viewModelScope.launch {
                 dataStore.setLanguage(languageCode)
@@ -122,7 +124,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                             latitudeAndLongitude,
                             flightList
                         )
-                        println(tempAirport)
                         tempList.add(tempAirport)
                     }
                 }
@@ -134,38 +135,129 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun sendReport(selectedImage: Uri?,user: User,complaint: String,fragment: Fragment){
+    fun getFlightsWithQR(qrcode: String?, fragment: Fragment) {
+        if (qrcode != null) {
+            database.collection(FIREBASE_COLLECTION).document(qrcode)
+                .addSnapshotListener { document, exception ->
+                    if (exception != null) {
+                        Toast.makeText(
+                            fragment.context,
+                            exception.localizedMessage,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        if (document != null && document.exists()) {
+
+                            val flightHashList =
+                                document.get("flightList") as List<HashMap<String, String>>
+
+                            val flightList = arrayListOf<Flights>()
+
+                            flightHashList.forEach {
+                                val flight =
+                                    Flights(
+                                        it.get("companyName"),
+                                        it.get("flightStartAndFinishTime"),
+                                        it.get("capacity"),
+                                        it.get("hour"),
+                                        it.get("flightCode"),
+                                        it.get("startAndTargetCode")
+                                    )
+                                flightList.add(flight)
+                            }
+
+                            val action =
+                                QRScannerFragmentDirections.actionQRScannerFragmentToAirportFlightsFragment(
+                                    flightList.toTypedArray()
+                                )
+                            Navigation.findNavController(fragment.requireView()).navigate(action)
+
+                        }
+                    }
+                }
+        }
+    }
+
+    fun getAirportCodes(context: Context){
+        database.collection("airport_qr_keys").addSnapshotListener { snapshot, exception ->
+            if (exception != null){
+                Toast.makeText(context,exception.localizedMessage,Toast.LENGTH_LONG).show()
+            }else{
+                val tempList = arrayListOf<QRCodeAirport>()
+
+                if (snapshot != null &&! snapshot.isEmpty){
+                    val documents = snapshot.documents
+                    tempList.clear()
+
+                    for(doc in documents){
+                        val airportCode = doc["airportCode"] as String
+                        tempList.add(QRCodeAirport(airportCode))
+                    }
+                }
+                if (!tempList.isNullOrEmpty()){
+                    airportCodesList.value = tempList
+                }
+            }
+        }
+    }
+
+
+
+    fun sendReport(selectedImage: Uri?, user: User, complaint: String, fragment: Fragment) {
         val uuid = UUID.randomUUID()
         val imageName = "${uuid}.jpg"
         var imageUrl = ""
 
         val imageReference = storage.reference.child(STORAGE_REPORT_REFERENCE).child(imageName)
-        if (selectedImage!= null){
+        if (selectedImage != null) {
             imageReference.putFile(selectedImage).addOnSuccessListener { _ ->
                 storage.reference.child(STORAGE_REPORT_REFERENCE).child(imageName)
                     .downloadUrl.addOnSuccessListener { uri ->
                         imageUrl = uri.toString()
-                        database.collection(FIREBASE_COLLECTION_REPORT).add(Report(user.userName,user.userSurname
-                            ,user.userEmail,imageUrl,complaint)).addOnSuccessListener {
+                        database.collection(FIREBASE_COLLECTION_REPORT).add(
+                            Report(
+                                user.userName, user.userSurname, user.userEmail, imageUrl, complaint
+                            )
+                        ).addOnSuccessListener {
 
-                            Toast.makeText(fragment.context,fragment.context?.getString(R.string.succesfully_sent),Toast.LENGTH_LONG).show()
-                            fragment.findNavController().navigate(R.id.action_reportFragment_to_action_profile)
+                            Toast.makeText(
+                                fragment.context,
+                                fragment.context?.getString(R.string.succesfully_sent),
+                                Toast.LENGTH_LONG
+                            ).show()
+                            fragment.findNavController()
+                                .navigate(R.id.action_reportFragment_to_action_profile)
 
                         }.addOnFailureListener { exception ->
-                            Toast.makeText(fragment.context,exception.localizedMessage.toString(),Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                fragment.context,
+                                exception.localizedMessage.toString(),
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
 
                     }
             }
-        }else{
-            database.collection(FIREBASE_COLLECTION_REPORT).add(Report(user.userName,user.userSurname
-                ,user.userEmail,imageUrl,complaint)).addOnSuccessListener {
+        } else {
+            database.collection(FIREBASE_COLLECTION_REPORT).add(
+                Report(
+                    user.userName, user.userSurname, user.userEmail, imageUrl, complaint
+                )
+            ).addOnSuccessListener {
 
-                Toast.makeText(fragment.context,fragment.context?.getString(R.string.succesfully_sent),Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    fragment.context,
+                    fragment.context?.getString(R.string.succesfully_sent),
+                    Toast.LENGTH_LONG
+                ).show()
                 fragment.findNavController().navigate(R.id.action_reportFragment_to_action_profile)
 
             }.addOnFailureListener { exception ->
-                Toast.makeText(fragment.context,exception.localizedMessage.toString(),Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    fragment.context,
+                    exception.localizedMessage.toString(),
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
 
@@ -180,7 +272,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     ) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Toast.makeText(fragment.context, fragment.context?.getString(R.string.succesfully_signup), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    fragment.context,
+                    fragment.context?.getString(R.string.succesfully_signup),
+                    Toast.LENGTH_LONG
+                ).show()
                 val f1 =
                     Flights("Turkish Airlines", "09:45;11:45", "20", "Hour", "TK1919", "SAW,SZF")
                 val f2 = Flights("Pegasus", "08:50;12:45", "10", "Hour", "TK9876", "ABC,DEF")
@@ -204,7 +300,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun login(email: String, password: String, fragment: Fragment) {
         auth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
 
-            Toast.makeText(fragment.context, fragment.getString(R.string.succesful_login), Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                fragment.context,
+                fragment.getString(R.string.succesful_login),
+                Toast.LENGTH_LONG
+            ).show()
             fragment.findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
             fragment.activity?.finish()
 
@@ -322,26 +422,30 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 .update("userSurname", surname)
         }
         if (isChanged) {
-            Toast.makeText(context, context.getString(R.string.changes_applied), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, context.getString(R.string.changes_applied), Toast.LENGTH_SHORT)
+                .show()
         } else {
-            Toast.makeText(context, context.getString(R.string.any_change), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, context.getString(R.string.any_change), Toast.LENGTH_SHORT)
+                .show()
         }
 
     }
 
 
-     fun sendNotification(notification: PushNotification,context: Context) = CoroutineScope(Dispatchers.IO).launch {
-        try {
-            val response = RetrofitObject.api.postNotification(notification)
-            if (response.isSuccessful){
-                Toast.makeText(context,response.message().toString(),Toast.LENGTH_LONG).show()
-            }else{
-                Toast.makeText(context,response.errorBody().toString(),Toast.LENGTH_LONG).show()
+    fun sendNotification(notification: PushNotification, context: Context) =
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitObject.api.postNotification(notification)
+                if (response.isSuccessful) {
+                    Toast.makeText(context, response.message().toString(), Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(context, response.errorBody().toString(), Toast.LENGTH_LONG)
+                        .show()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-        }catch (e: Exception){
-            e.printStackTrace()
         }
-    }
 
     fun hasInternetConnection(): Boolean {
         val connectivityManager =
@@ -357,6 +461,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             else -> false
         }
     }
+
     /**Push Data to Firebase*/
     fun pushData() {
         val f1 = Flights("Turkish Airlines", "09:45;11:45", "20", "Hour", "TK1919", "SAW,SZF")
@@ -401,6 +506,28 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
+    /**Push Airport Codes*/
+
+    fun pushAirportFlightCodes() {
+        val a1 = QRCodeAirport("9mPeDZ3hkhwV8eKtvey6")
+        val a2 = QRCodeAirport("JIQrsmHsG0odiaEUDGkG")
+        val a3 = QRCodeAirport("Q6AUiyszDVakA7WiboDa")
+        val a4 = QRCodeAirport("fxYDdwu3T0VLzaL4RuFg")
+        val a5 = QRCodeAirport("lNhewJrtgYNTSwBzwKWL")
+        val a6 = QRCodeAirport("r6oNLrrwE6e6vYQryLZb")
+        val a7 = QRCodeAirport("sPNOj38UaJ5K31K2AaeY")
+        val a8 = QRCodeAirport("tQstf6VY2c6Vmfvz883U")
+
+
+        database.collection("airport_qr_keys").add(a1)
+        database.collection("airport_qr_keys").add(a2)
+        database.collection("airport_qr_keys").add(a3)
+        database.collection("airport_qr_keys").add(a4)
+        database.collection("airport_qr_keys").add(a5)
+        database.collection("airport_qr_keys").add(a6)
+        database.collection("airport_qr_keys").add(a7)
+        database.collection("airport_qr_keys").add(a8)
+    }
 
 
 }

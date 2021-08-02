@@ -94,6 +94,10 @@ class ProfileFragment : Fragment() {
             Navigation.findNavController(it).navigate(action)
         }
 
+        binding.qrScannerButton.setOnClickListener {
+            findNavController().navigate(R.id.action_action_profile_to_QRScannerFragment)
+        }
+
         return binding.root
     }
     private fun shouldButtonClick() {

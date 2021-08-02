@@ -124,7 +124,7 @@
         <item>Sparkle</item>
     </string-array>
 
-    <string-array translatable="false" name="iamutkarshtiwari_github_io_ananas_filter_drawable_list">
+    <string-array name="iamutkarshtiwari_github_io_ananas_filter_drawable_list" translatable="false">
         <item>filter_1</item>
         <item>filter_2</item>
         <item>filter_3</item>
@@ -139,7 +139,7 @@
         <item>filter_12</item>
     </string-array>
 
-    <string-array translatable="false" name="iamutkarshtiwari_github_io_ananas_types">
+    <string-array name="iamutkarshtiwari_github_io_ananas_types" translatable="false">
         <item>type1</item>
         <item>type2</item>
         <item>type3</item>
@@ -157,7 +157,7 @@
         <item>Type 6</item>
     </string-array>
 
-    <integer-array translatable="false" name="iamutkarshtiwari_github_io_ananas_type_count">
+    <integer-array name="iamutkarshtiwari_github_io_ananas_type_count" translatable="false">
         <item>5</item>
         <item>5</item>
         <item>5</item>
