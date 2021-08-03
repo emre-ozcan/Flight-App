@@ -49,7 +49,7 @@ class QRScannerFragment : Fragment(),PermissionListener {
         })
 
 
-        Dexter.withContext(requireContext()).withPermission(Manifest.permission.CALL_PHONE)
+        Dexter.withContext(requireContext()).withPermission(Manifest.permission.CAMERA)
             .withListener(this).check()
 
         return binding.root
@@ -69,9 +69,8 @@ class QRScannerFragment : Fragment(),PermissionListener {
                 if (airportCodeList.contains(code.text)){
                     mainViewModel.getFlightsWithQR(code.text,this)
                 }else{
-                    Toast.makeText(requireContext(),"QR code is wrong",Toast.LENGTH_LONG).show()
+                    mainViewModel.getUserFlight(code.text,this)
                 }
-
             }
         }
         binding.codeScanner.setOnClickListener {

@@ -107,6 +107,7 @@
     <string name="iamutkarshtiwari_github_io_ananas_white_skin">Ten</string>
     <string name="iamutkarshtiwari_github_io_ananas_library_name">Fotoğraf Düzenleme</string>
     <string name="iamutkarshtiwari_github_io_ananas_size">Boyut</string>
+    <string name="document_could_not_find">Bilet Bulunamadı. Lütfen Kontrol Ediniz</string>
 
 
 </resources>

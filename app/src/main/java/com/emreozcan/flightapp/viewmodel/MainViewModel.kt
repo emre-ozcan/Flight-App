@@ -5,8 +5,6 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -27,14 +25,10 @@ import com.emreozcan.flightapp.util.Constants.Companion.FIREBASE_COLLECTION_USER
 import com.emreozcan.flightapp.util.Constants.Companion.STORAGE_REPORT_REFERENCE
 import com.emreozcan.flightapp.util.DataResult
 import com.emreozcan.flightapp.util.DataStoreRepository
-import com.google.firebase.auth.EmailAuthCredential
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -84,7 +78,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         dataResult.value = DataResult.Loading()
 
-        var tempList = arrayListOf<Airports>()
+        val tempList = arrayListOf<Airports>()
         database.collection(FIREBASE_COLLECTION).addSnapshotListener { snapshot, exception ->
             if (exception != null) {
                 Log.d("data", exception.localizedMessage!!)
@@ -106,12 +100,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         flightHashList.forEach {
                             val flight =
                                 Flights(
-                                    it.get("companyName"),
-                                    it.get("flightStartAndFinishTime"),
-                                    it.get("capacity"),
-                                    it.get("hour"),
-                                    it.get("flightCode"),
-                                    it.get("startAndTargetCode")
+                                    it["companyName"],
+                                    it["flightStartAndFinishTime"],
+                                    it["capacity"],
+                                    it["hour"],
+                                    it["flightCode"],
+                                    it["startAndTargetCode"]
                                 )
                             flightList.add(flight)
                         }
@@ -130,6 +124,33 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 if (tempList.isNotEmpty()) {
                     airportsList.value = tempList
                     dataResult.value = DataResult.Success()
+                }
+            }
+        }
+    }
+
+    fun getUserFlight(documentId: String,fragment: Fragment){
+        database.collection("user_flight_ticket_keys").document(documentId).addSnapshotListener { document, exception ->
+            if (exception != null){
+                Toast.makeText(fragment.context,exception.localizedMessage,Toast.LENGTH_LONG).show()
+
+            }else{
+                if (document != null && document.exists()){
+                    val capacity = document["capacity"] as String
+                    val companyName = document["companyName"] as String
+                    val flightCode = document["flightCode"] as String
+                    val flightStartAndFinishTime = document["flightStartAndFinishTime"] as String
+                    val hour = document["hour"] as String
+                    val startAndTargetCode = document["startAndTargetCode"] as String
+
+                    val flight = Flights(companyName,flightStartAndFinishTime,capacity,hour,flightCode, startAndTargetCode)
+
+                    val action = QRScannerFragmentDirections.actionQRScannerFragmentToAirportFlightsFragment(
+                        arrayOf(flight))
+                    Navigation.findNavController(fragment.requireView()).navigate(action)
+
+                }else{
+                    Toast.makeText(fragment.context,fragment.context?.getString(R.string.document_could_not_find),Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -156,12 +177,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                             flightHashList.forEach {
                                 val flight =
                                     Flights(
-                                        it.get("companyName"),
-                                        it.get("flightStartAndFinishTime"),
-                                        it.get("capacity"),
-                                        it.get("hour"),
-                                        it.get("flightCode"),
-                                        it.get("startAndTargetCode")
+                                        it["companyName"],
+                                        it["flightStartAndFinishTime"],
+                                        it["capacity"],
+                                        it["hour"],
+                                        it["flightCode"],
+                                        it["startAndTargetCode"]
                                     )
                                 flightList.add(flight)
                             }
@@ -210,7 +231,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
         val imageReference = storage.reference.child(STORAGE_REPORT_REFERENCE).child(imageName)
         if (selectedImage != null) {
-            imageReference.putFile(selectedImage).addOnSuccessListener { _ ->
+            imageReference.putFile(selectedImage).addOnSuccessListener {
                 storage.reference.child(STORAGE_REPORT_REFERENCE).child(imageName)
                     .downloadUrl.addOnSuccessListener { uri ->
                         imageUrl = uri.toString()
@@ -231,7 +252,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                         }.addOnFailureListener { exception ->
                             Toast.makeText(
                                 fragment.context,
-                                exception.localizedMessage.toString(),
+                                exception.localizedMessage,
                                 Toast.LENGTH_LONG
                             ).show()
                         }
@@ -255,7 +276,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }.addOnFailureListener { exception ->
                 Toast.makeText(
                     fragment.context,
-                    exception.localizedMessage.toString(),
+                    exception.localizedMessage,
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -335,15 +356,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
                             val flightList = arrayListOf<Flights>()
 
-                            flightHashList.forEach {
+                            flightHashList.forEach { index ->
                                 val flight =
                                     Flights(
-                                        it["companyName"],
-                                        it["flightStartAndFinishTime"],
-                                        it["capacity"],
-                                        it["hour"],
-                                        it["flightCode"],
-                                        it["startAndTargetCode"]
+                                        index["companyName"],
+                                        index["flightStartAndFinishTime"],
+                                        index["capacity"],
+                                        index["hour"],
+                                        index["flightCode"],
+                                        index["startAndTargetCode"]
                                     )
                                 flightList.add(flight)
                             }
@@ -507,7 +528,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     /**Push Airport Codes*/
-
     fun pushAirportFlightCodes() {
         val a1 = QRCodeAirport("9mPeDZ3hkhwV8eKtvey6")
         val a2 = QRCodeAirport("JIQrsmHsG0odiaEUDGkG")
@@ -528,6 +548,20 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         database.collection("airport_qr_keys").add(a7)
         database.collection("airport_qr_keys").add(a8)
     }
+    /**Push Ticket*/
 
+    fun pushTickets(){
+        val f1 = Flights("Turkish Airlines", "09:45;11:45", "20", "Hour", "TK1919", "SAW,SZF")
+        val f2 = Flights("Pegasus", "08:50;12:45", "20", "Hour", "TK1919", "ABC,DEF")
+        val f3 = Flights("Anadolu Jet", "09:45;11:45", "20", "Hour", "TK1919", "DEF,ABC")
+        val f4 = Flights("Onur air", "09:45;11:45", "20", "Hour", "TK1919", "SZF,ABC")
+        val f5 = Flights("Atlas Global", "09:45;11:45", "20", "Hour", "TK1919", "XYZ,YZX")
+
+        database.collection("user_flight_ticket_keys").add(f1)
+        database.collection("user_flight_ticket_keys").add(f2)
+        database.collection("user_flight_ticket_keys").add(f3)
+        database.collection("user_flight_ticket_keys").add(f4)
+        database.collection("user_flight_ticket_keys").add(f5)
+    }
 
 }

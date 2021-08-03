@@ -175,5 +175,6 @@
     <string name="iamutkarshtiwari_github_io_ananas_smooth">Smooth</string>
     <string name="iamutkarshtiwari_github_io_ananas_white_skin">Skin</string>
     <string name="iamutkarshtiwari_github_io_ananas_library_name">Image Edit</string>
+    <string name="document_could_not_find">Ticket could not find. Please check code</string>
 
 </resources>
