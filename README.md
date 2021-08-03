@@ -22,12 +22,13 @@
 - Force Update
 - Dexter Permission Library
 - Shimmer Effect for RecyclerView
-- Youtube Player API
+- Pierfrancescosoffritti Youtube Player
 - Crashlytics
 - Firebase Debug
 - Push Notification
 - Multi Language Support
 - Report Screen
+- QR Scanner
 
 ### Push Notification
 <img src="https://user-images.githubusercontent.com/49096704/127179216-62bd052f-c23a-4fbf-9d00-4246d047c0ef.gif" height="500">
